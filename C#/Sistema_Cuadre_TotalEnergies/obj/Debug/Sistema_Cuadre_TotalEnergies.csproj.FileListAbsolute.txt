@@ -1,0 +1,15 @@
+C:\Users\Raily\OneDrive\Desktop\Proyecto Final\C#\Sistema_Cuadre_TotalEnergies\bin\Debug\Sistema_Cuadre_TotalEnergies.exe.config
+C:\Users\Raily\OneDrive\Desktop\Proyecto Final\C#\Sistema_Cuadre_TotalEnergies\bin\Debug\Sistema_Cuadre_TotalEnergies.exe
+C:\Users\Raily\OneDrive\Desktop\Proyecto Final\C#\Sistema_Cuadre_TotalEnergies\bin\Debug\Sistema_Cuadre_TotalEnergies.pdb
+C:\Users\Raily\OneDrive\Desktop\Proyecto Final\C#\Sistema_Cuadre_TotalEnergies\obj\Debug\Sistema_Cuadre_TotalEnergies.csproj.AssemblyReference.cache
+C:\Users\Raily\OneDrive\Desktop\Proyecto Final\C#\Sistema_Cuadre_TotalEnergies\obj\Debug\Sistema_Cuadre_TotalEnergies.Cuadre.resources
+C:\Users\Raily\OneDrive\Desktop\Proyecto Final\C#\Sistema_Cuadre_TotalEnergies\obj\Debug\Sistema_Cuadre_TotalEnergies.Form1.resources
+C:\Users\Raily\OneDrive\Desktop\Proyecto Final\C#\Sistema_Cuadre_TotalEnergies\obj\Debug\Sistema_Cuadre_TotalEnergies.Menu_Principal.resources
+C:\Users\Raily\OneDrive\Desktop\Proyecto Final\C#\Sistema_Cuadre_TotalEnergies\obj\Debug\Sistema_Cuadre_TotalEnergies.Properties.Resources.resources
+C:\Users\Raily\OneDrive\Desktop\Proyecto Final\C#\Sistema_Cuadre_TotalEnergies\obj\Debug\Sistema_Cuadre_TotalEnergies.csproj.GenerateResource.cache
+C:\Users\Raily\OneDrive\Desktop\Proyecto Final\C#\Sistema_Cuadre_TotalEnergies\obj\Debug\Sistema_Cuadre_TotalEnergies.csproj.CoreCompileInputs.cache
+C:\Users\Raily\OneDrive\Desktop\Proyecto Final\C#\Sistema_Cuadre_TotalEnergies\obj\Debug\Sistema_Cuadre_TotalEnergies.exe
+C:\Users\Raily\OneDrive\Desktop\Proyecto Final\C#\Sistema_Cuadre_TotalEnergies\obj\Debug\Sistema_Cuadre_TotalEnergies.pdb
+C:\Users\Raily\OneDrive\Desktop\Proyecto Final\C#\Sistema_Cuadre_TotalEnergies\obj\Debug\Sistema_Cuadre_TotalEnergies.exe.config
+C:\Users\Raily\OneDrive\Desktop\Proyecto Final\C#\Sistema_Cuadre_TotalEnergies\obj\Debug\Sistema_Cuadre_TotalEnergies.Menu_HojasDetalle.resources
+C:\Users\Raily\OneDrive\Desktop\Proyecto Final\C#\Sistema_Cuadre_TotalEnergies\obj\Debug\Sistema_Cuadre_TotalEnergies.Menu_Reportes.resources
