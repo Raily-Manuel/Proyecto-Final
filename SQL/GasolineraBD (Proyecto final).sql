@@ -114,3 +114,4 @@ select * from Productos
 select * from Islas
 select * from Mangueras
 select * from Empleado
+select * from Ventas

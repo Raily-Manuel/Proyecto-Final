@@ -1,4 +1,5 @@
 --PROCEDIMIENTOS ALMACENADOS
+use GasolineraDB
 
 --MOSTRAR DATOS DE ISLA EN EL DGV
 create or alter proc sp_Mostrar_Datos_Isla
@@ -281,3 +282,17 @@ begin
         )
 end
 exec sp_Reporte @id_Isla = 2, @Turno = 'Matutino', @Fecha = '2026-05-03';
+
+--Validar login
+CREATE OR ALTER PROC sp_Iniciar_Sesion
+    @Nombre VARCHAR(30),
+    @Clave VARCHAR(30)
+AS
+BEGIN
+    SELECT 
+        Nombre,
+        Cargo
+    FROM Empleado
+    WHERE Nombre = @Nombre
+    AND Clave = @Clave
+END
