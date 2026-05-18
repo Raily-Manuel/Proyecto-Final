@@ -16,5 +16,11 @@ namespace Sistema_Cuadre_TotalEnergies
         {
             InitializeComponent();
         }
+
+        private void Menu_Reportes_Load(object sender, EventArgs e)
+        {
+
+            this.reportViewer1.RefreshReport();
+        }
     }
 }

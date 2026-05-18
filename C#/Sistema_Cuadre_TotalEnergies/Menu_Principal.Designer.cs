@@ -71,7 +71,7 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label4);
-            this.panel1.Location = new System.Drawing.Point(-2, 0);
+            this.panel1.Location = new System.Drawing.Point(-2, -14);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1119, 210);
             this.panel1.TabIndex = 3;
@@ -251,7 +251,7 @@
             this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.label6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(422, 403);
+            this.label6.Location = new System.Drawing.Point(422, 389);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(265, 25);
             this.label6.TabIndex = 13;
@@ -265,7 +265,7 @@
             this.label7.BackColor = System.Drawing.Color.RoyalBlue;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(771, 403);
+            this.label7.Location = new System.Drawing.Point(771, 389);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(256, 25);
             this.label7.TabIndex = 14;
@@ -275,7 +275,7 @@
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.panel5.Location = new System.Drawing.Point(527, 621);
+            this.panel5.Location = new System.Drawing.Point(527, 592);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(313, 10);
             this.panel5.TabIndex = 16;
@@ -283,7 +283,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.DarkOrange;
-            this.panel2.Location = new System.Drawing.Point(243, 621);
+            this.panel2.Location = new System.Drawing.Point(243, 592);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(314, 10);
             this.panel2.TabIndex = 13;
@@ -291,7 +291,7 @@
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.Red;
-            this.panel4.Location = new System.Drawing.Point(-2, 621);
+            this.panel4.Location = new System.Drawing.Point(-2, 592);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(253, 10);
             this.panel4.TabIndex = 15;
@@ -299,7 +299,7 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.RoyalBlue;
-            this.panel3.Location = new System.Drawing.Point(833, 621);
+            this.panel3.Location = new System.Drawing.Point(833, 592);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(284, 10);
             this.panel3.TabIndex = 14;
@@ -311,7 +311,7 @@
             this.label5.BackColor = System.Drawing.Color.DarkOrange;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(67, 403);
+            this.label5.Location = new System.Drawing.Point(67, 389);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(254, 25);
             this.label5.TabIndex = 12;
@@ -325,7 +325,7 @@
             this.label9.BackColor = System.Drawing.Color.Transparent;
             this.label9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.Gray;
-            this.label9.Location = new System.Drawing.Point(39, 253);
+            this.label9.Location = new System.Drawing.Point(39, 239);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(222, 25);
             this.label9.TabIndex = 17;
@@ -336,7 +336,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1113, 630);
+            this.ClientSize = new System.Drawing.Size(1113, 602);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.panel5);

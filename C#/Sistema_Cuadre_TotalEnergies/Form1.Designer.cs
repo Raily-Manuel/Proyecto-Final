@@ -182,6 +182,7 @@
             this.btnini.TabIndex = 9;
             this.btnini.Text = "Iniciar Sesion";
             this.btnini.UseVisualStyleBackColor = false;
+            this.btnini.Click += new System.EventHandler(this.btnini_Click);
             // 
             // txtcontra
             // 
