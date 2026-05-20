@@ -1,4 +1,5 @@
 ﻿using Datos;
+using Entidades;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -40,6 +41,43 @@ namespace Negocio
         public DataTable PromedioVenta(int idIsla, string turno, DateTime fecha)
         {
             return datos.PromedioVenta(idIsla, turno, fecha);
+        }
+
+        public void GuardarReporte(EReporte obj)
+        {
+            datos.GuardarReporte(obj);
+        }
+
+        public DataSet RegistrarHojaDetalle(DateTime fecha, string turno)
+        {
+            return datos.RegistrarHojaDetalle(fecha, turno);
+        }
+
+        public DataTable ObtenerParametros(
+            int idIsla,
+            string turno,
+            DateTime fecha)
+        {
+            return datos.ObtenerParametros(
+                idIsla,
+                turno,
+                fecha
+            );
+        }
+
+        public DataTable MostrarCuadre(ECuadre obj)
+        {
+            return datos.MostrarCuadre(obj);
+        }
+
+        public DataTable MostrarTurnos()
+        {
+            return datos.MostrarTurnos();
+        }
+
+        public DataTable MostrarDatosIsla()
+        {
+            return datos.MostrarDatosIsla();
         }
     }
 }
