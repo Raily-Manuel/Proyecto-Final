@@ -283,16 +283,16 @@ begin
 end
 exec sp_Reporte @id_Isla = 2, @Turno = 'Matutino', @Fecha = '2026-05-03';
 
---Validar login
-CREATE OR ALTER PROC sp_Iniciar_Sesion
-    @Nombre VARCHAR(30),
-    @Clave VARCHAR(30)
-AS
-BEGIN
-    SELECT 
-        Nombre,
-        Cargo
-    FROM Empleado
-    WHERE Nombre = @Nombre
-    AND Clave = @Clave
-END
+create or alter proc sp_Iniciar_Sesion
+	@Usuario varchar(30),
+	@Contrasena varchar(30)
+as
+begin
+	select 
+		Nombre,
+		Cargo
+	from Usuarios
+	where Usuario = @Usuario
+	and Contrasena = @Contrasena
+end
+
