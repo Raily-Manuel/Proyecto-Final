@@ -1,4 +1,5 @@
-﻿using Negocio;
+﻿using Entidades;
+using Negocio;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -148,26 +149,20 @@ namespace Sistema_Cuadre_TotalEnergies
         // =========================
         // MOSTRAR DATOS GRID
         // =========================
-        private void btnbuscar_Click(
-            object sender,
-            EventArgs e)
+        private void btnbuscar_Click(object sender, EventArgs e)
         {
-            int isla =
-                Convert.ToInt32(cmbisla.SelectedValue);
+            // Crear el objeto ECuadre con los valores del formulario
+            ECuadre obj = new ECuadre
+            {
+                IdIsla = Convert.ToInt32(cmbisla.SelectedValue),
+                Turno = cmbturno.Text,
+                Fecha = dtpfecha.Value.Date
+            };
 
-            string turno =
-                cmbturno.Text;
+            // Llamar al método pasando el objeto
+            dataGridView1.DataSource = negocio.MostrarCuadre(obj);
 
-            DateTime fecha =
-                dtpfecha.Value.Date;
-
-            dataGridView1.DataSource =
-                negocio.MostrarCuadre(
-                    isla,
-                    turno,
-                    fecha);
-
-            // MOSTRAR PARAMETROS
+            // MOSTRAR PARAMETROS (si tienes ese método)
             MostrarParametros();
         }
 
