@@ -43,8 +43,10 @@
   <ItemGroup>
     <Compile Include="Categoria.cs" />
     <Compile Include="Detalle_Venta.cs" />
+    <Compile Include="ECuadre.cs" />
     <Compile Include="Empleado.cs" />
     <Compile Include="Empleado_Isla.cs" />
+    <Compile Include="EReporte.cs" />
     <Compile Include="Islas.cs" />
     <Compile Include="Isla_Manguera.cs" />
     <Compile Include="Mangueras.cs" />

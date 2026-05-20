@@ -89,6 +89,16 @@ Hora time(0),
 foreign key (id_Isla) references Islas(id_Isla)
 )
 
+--Reporte guardar
+CREATE TABLE ReporteCuadre
+(
+    id_Reporte INT PRIMARY KEY IDENTITY(1,1),
+    id_Isla INT,
+    Turno VARCHAR(20),
+    Fecha DATE,
+    Total DECIMAL(18,2)
+);
+
 --DETALLE_VENTA
 create table Detalle_Venta(
 id_Detalle int primary key identity(1,1),
@@ -108,10 +118,15 @@ FOREIGN KEY (id_Manguera) REFERENCES Mangueras(id_Manguera),
 FOREIGN KEY (id_Producto) REFERENCES Productos(id_Producto)
 )
 
-select * from Empleado_isla
+
+
 select * from Categoria
 select * from Productos
-select * from Islas
 select * from Mangueras
+select * from Islas
 select * from Empleado
+select * from Empleado_isla
+select * from Isla_Manguera
 select * from Ventas
+select * from ReporteCuadre
+

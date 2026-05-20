@@ -2,42 +2,69 @@
 use GasolineraDB
 
 --MOSTRAR DATOS DE ISLA EN EL DGV
-create or alter proc sp_Mostrar_Datos_Isla
-	@id_Isla int,
-	@Turno varchar(20),
-	@Fecha DATE
-as
-begin
-	select 
-		m.id_Manguera as [No. Manguera],
-		P.NomProducto as Producto,
-		P.Precio_Litro as Precio,
+CREATE OR ALTER PROC sp_Hoja_Detalle
+(
+    @Fecha DATE,
+    @Turno VARCHAR(20)
+)
+AS
+BEGIN
 
-		min(dv.LecturaINL) as [L.Inicial],
-		max(dv.LecturaFNL) as [L.Final],
+    SELECT
+        m.id_Manguera AS [No. Mg.],
+        p.NomProducto AS Producto,
+        p.Precio_Litro AS Precio,
 
-		isnull(sum(dv.Galones), 0) as Galones,
-		isnull(sum(dv.Total), 0) as [Total Ventas]
+        MIN(dv.LecturaINL) AS [L.Inicial],
+        MAX(dv.LecturaFNL) AS [L.Final],
 
-	from Isla_Manguera im
-	inner join Mangueras m on im.id_Manguera = m.id_Manguera
-	inner join Productos p on m.id_Producto = p.id_Producto
+        ISNULL(SUM(dv.Galones), 0) AS Galones,
+        ISNULL(SUM(dv.Total), 0) AS Importe
 
-	left join Detalle_Venta dv on m.id_Manguera = dv.id_Manguera
-	left join Ventas v on dv.id_Venta = v.id_Venta
-		and v.id_Isla = @id_Isla
-		and v.Fecha = @Fecha
-		and(
-			(@Turno = 'Matutino' and v.Hora >= '6:00' and v.Hora < '14:00')
-			or (@Turno = 'Vespertino' and v.Hora >= '14:00' and v.Hora < '22:00')
-			or (@Turno = 'Nocturno' and (v.Hora >= '22:00' or v.Hora < '6:00'))
-		)
+    FROM Mangueras m
 
-	where im.id_Isla = @id_Isla
-		
-	group by m.id_Manguera, p.NomProducto, p.Precio_Litro
-	order by m.id_Manguera
-end
+    INNER JOIN Productos p
+        ON m.id_Producto = p.id_Producto
+
+    LEFT JOIN Detalle_Venta dv
+        ON m.id_Manguera = dv.id_Manguera
+
+    LEFT JOIN Ventas v
+        ON dv.id_Venta = v.id_Venta
+        AND v.Fecha = @Fecha
+        AND(
+            (@Turno = 'Matutino' AND v.Hora >= '06:00' AND v.Hora < '14:00')
+            OR (@Turno = 'Vespertino' AND v.Hora >= '14:00' AND v.Hora < '22:00')
+            OR (@Turno = 'Nocturno' AND (v.Hora >= '22:00' OR v.Hora < '06:00'))
+        )
+
+    GROUP BY
+        m.id_Manguera,
+        p.NomProducto,
+        p.Precio_Litro
+
+    ORDER BY m.id_Manguera;
+
+
+    /* TOTALES GENERALES */
+
+    SELECT
+        ISNULL(SUM(dv.Galones), 0) AS Total_Galones,
+        ISNULL(SUM(dv.Total), 0) AS Total_Ventas
+
+    FROM Detalle_Venta dv
+
+    INNER JOIN Ventas v
+        ON dv.id_Venta = v.id_Venta
+
+    WHERE v.Fecha = @Fecha
+    AND(
+        (@Turno = 'Matutino' AND v.Hora >= '06:00' AND v.Hora < '14:00')
+        OR (@Turno = 'Vespertino' AND v.Hora >= '14:00' AND v.Hora < '22:00')
+        OR (@Turno = 'Nocturno' AND (v.Hora >= '22:00' OR v.Hora < '06:00'))
+    );
+
+END
 
 exec sp_Mostrar_Datos_Isla @id_Isla = 4, @Turno = 'Nocturno', @Fecha = '2026-05-03';
 
@@ -295,4 +322,129 @@ BEGIN
     FROM Empleado
     WHERE Nombre = @Nombre
     AND Clave = @Clave
+END
+
+--Guardar Reporte
+CREATE OR ALTER PROC sp_GuardarReporte
+(
+    @id_Isla INT,
+    @Turno VARCHAR(20),
+    @Fecha DATE,
+    @Total DECIMAL(18,2)
+)
+AS
+BEGIN
+
+    INSERT INTO ReporteCuadre
+    (
+        id_Isla,
+        Turno,
+        Fecha,
+        Total
+    )
+    VALUES
+    (
+        @id_Isla,
+        @Turno,
+        @Fecha,
+        @Total
+    );
+
+END
+
+--Obtener parametros
+CREATE OR ALTER PROC sp_ObtenerParametros
+(
+    @id_Isla INT,
+    @Turno VARCHAR(20),
+    @Fecha DATE
+)
+AS
+BEGIN
+
+    SELECT
+        @id_Isla AS id_Isla,
+        @Turno AS Turno,
+        @Fecha AS Fecha;
+
+END
+
+--MostrarCuadre
+CREATE OR ALTER PROC sp_MostrarCuadre
+(
+    @id_Isla INT,
+    @Turno VARCHAR(20),
+    @Fecha DATE
+)
+AS
+BEGIN
+
+    SELECT
+        m.id_Manguera AS [No. Manguera],
+        p.NomProducto AS Producto,
+        p.Precio_Litro AS Precio,
+
+        MIN(dv.LecturaINL) AS [L.Inicial],
+        MAX(dv.LecturaFNL) AS [L.Final],
+
+        ISNULL(SUM(dv.Galones),0) AS Galones,
+        ISNULL(SUM(dv.Total),0) AS [Total Ventas]
+
+    FROM Isla_Manguera im
+
+    INNER JOIN Mangueras m
+        ON im.id_Manguera = m.id_Manguera
+
+    INNER JOIN Productos p
+        ON m.id_Producto = p.id_Producto
+
+    LEFT JOIN Detalle_Venta dv
+        ON m.id_Manguera = dv.id_Manguera
+
+    LEFT JOIN Ventas v
+        ON dv.id_Venta = v.id_Venta
+        AND v.id_Isla = @id_Isla
+        AND v.Fecha = @Fecha
+        AND(
+            (@Turno = 'Matutino' AND v.Hora >= '06:00' AND v.Hora < '14:00')
+            OR (@Turno = 'Vespertino' AND v.Hora >= '14:00' AND v.Hora < '22:00')
+            OR (@Turno = 'Nocturno' AND (v.Hora >= '22:00' OR v.Hora < '06:00'))
+        )
+
+    WHERE im.id_Isla = @id_Isla
+
+    GROUP BY
+        m.id_Manguera,
+        p.NomProducto,
+        p.Precio_Litro
+
+    ORDER BY m.id_Manguera;
+
+END
+
+--Mostrar Turnos
+CREATE OR ALTER PROC sp_MostrarTurnos
+AS
+BEGIN
+
+    SELECT 'Matutino' AS Turno
+    UNION
+    SELECT 'Vespertino'
+    UNION
+    SELECT 'Nocturno';
+
+END
+
+--Mostrar Turnos
+CREATE OR ALTER PROC sp_MostrarDatosIsla
+AS
+BEGIN
+
+    SELECT
+        id_Isla,
+        Estado
+    FROM Islas
+
+    ORDER BY id_Isla;
+
 END

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Entidades;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -107,6 +109,117 @@ namespace Datos
             cmd.Parameters.AddWithValue("@id_Isla", idIsla);
             cmd.Parameters.AddWithValue("@Turno", turno);
             cmd.Parameters.AddWithValue("@Fecha", fecha);
+
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+            DataTable dt = new DataTable();
+
+            da.Fill(dt);
+
+            return dt;
+        }
+
+        public void GuardarReporte(EReporte obj)
+        {
+            SqlConnection cn = conexion.ObtenerConexion();
+
+            SqlCommand cmd = new SqlCommand("sp_GuardarReporte", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@id_Isla", obj.IdIsla);
+            cmd.Parameters.AddWithValue("@Turno", obj.Turno);
+            cmd.Parameters.AddWithValue("@Fecha", obj.Fecha);
+
+            cn.Open();
+            cmd.ExecuteNonQuery();
+            cn.Close();
+        }
+
+        public DataSet RegistrarHojaDetalle(DateTime fecha, string turno)
+        {
+            SqlConnection cn = conexion.ObtenerConexion();
+
+            SqlCommand cmd = new SqlCommand("sp_Hoja_Detalle", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@Fecha", fecha);
+            cmd.Parameters.AddWithValue("@Turno", turno);
+
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+            DataSet ds = new DataSet();
+
+            da.Fill(ds);
+
+            return ds;
+        }
+
+        public DataTable ObtenerParametros(
+            int idIsla,
+            string turno,
+            DateTime fecha)
+        {
+            SqlConnection cn = conexion.ObtenerConexion();
+
+            SqlCommand cmd = new SqlCommand("sp_ObtenerParametros", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@id_Isla", idIsla);
+            cmd.Parameters.AddWithValue("@Turno", turno);
+            cmd.Parameters.AddWithValue("@Fecha", fecha);
+
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+            DataTable dt = new DataTable();
+
+            da.Fill(dt);
+
+            return dt;
+        }
+
+        public DataTable MostrarCuadre(ECuadre obj)
+        {
+            SqlConnection cn = conexion.ObtenerConexion();
+
+            SqlCommand cmd = new SqlCommand("sp_MostrarCuadre", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@id_Isla", obj.IdIsla);
+            cmd.Parameters.AddWithValue("@Turno", obj.Turno);
+            cmd.Parameters.AddWithValue("@Fecha", obj.Fecha);
+
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+            DataTable dt = new DataTable();
+
+            da.Fill(dt);
+
+            return dt;
+        }
+
+        public DataTable MostrarTurnos()
+        {
+            SqlConnection cn = conexion.ObtenerConexion();
+
+            SqlCommand cmd = new SqlCommand("sp_MostrarTurnos", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+            DataTable dt = new DataTable();
+
+            da.Fill(dt);
+
+            return dt;
+        }
+
+
+        public DataTable MostrarDatosIsla()
+        {
+            SqlConnection cn = conexion.ObtenerConexion();
+
+            SqlCommand cmd = new SqlCommand("sp_MostrarDatosIsla", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
 
             SqlDataAdapter da = new SqlDataAdapter(cmd);
 

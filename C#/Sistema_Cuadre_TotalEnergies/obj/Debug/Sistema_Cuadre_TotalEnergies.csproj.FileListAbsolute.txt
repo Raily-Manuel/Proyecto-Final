@@ -145,3 +145,6 @@ C:\Users\Raily\OneDrive\Desktop\Proyecto Final2\C#\Sistema_Cuadre_TotalEnergies\
 C:\Users\Raily\OneDrive\Desktop\Proyecto Final2\C#\Sistema_Cuadre_TotalEnergies\obj\Debug\Sistema_.22B2C009.Up2Date
 C:\Users\Raily\OneDrive\Desktop\Proyecto Final2\C#\Sistema_Cuadre_TotalEnergies\obj\Debug\Sistema_Cuadre_TotalEnergies.exe
 C:\Users\Raily\OneDrive\Desktop\Proyecto Final2\C#\Sistema_Cuadre_TotalEnergies\obj\Debug\Sistema_Cuadre_TotalEnergies.pdb
+C:\Users\pokes\Downloads\Proyecto-Final-main\Proyecto-Final-main\C#\Sistema_Cuadre_TotalEnergies\obj\Debug\Sistema_Cuadre_TotalEnergies.csproj.AssemblyReference.cache
+C:\Users\pokes\Downloads\Proyecto-Final-main\Proyecto-Final-main\C#\Sistema_Cuadre_TotalEnergies\obj\Debug\Sistema_Cuadre_TotalEnergies.exe
+C:\Users\pokes\Downloads\Proyecto-Final-main\Proyecto-Final-main\C#\Sistema_Cuadre_TotalEnergies\obj\Debug\Sistema_Cuadre_TotalEnergies.pdb
