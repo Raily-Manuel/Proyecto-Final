@@ -195,6 +195,7 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // label1
             // 
@@ -251,6 +252,7 @@
             this.btnreport.Text = "   Reportes\r\n\r\n\r\n\r\n";
             this.btnreport.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             this.btnreport.UseVisualStyleBackColor = false;
+            this.btnreport.Click += new System.EventHandler(this.btnreport_Click_1);
             // 
             // btnhojdetalle
             // 
@@ -268,6 +270,7 @@
             this.btnhojdetalle.Text = "   Hojas de Detalle\r\n\r\n\r\n\r\n";
             this.btnhojdetalle.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             this.btnhojdetalle.UseVisualStyleBackColor = false;
+            this.btnhojdetalle.Click += new System.EventHandler(this.btnhojdetalle_Click_1);
             // 
             // btncuadre
             // 
@@ -285,7 +288,7 @@
             this.btncuadre.Text = "   Cuadre de Turno\r\n\r\n";
             this.btncuadre.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btncuadre.UseVisualStyleBackColor = false;
-            //this.btncuadre.Click += new System.EventHandler(this.btncuadre_Click_1);
+            this.btncuadre.Click += new System.EventHandler(this.btncuadre_Click_1);
             // 
             // label6
             // 

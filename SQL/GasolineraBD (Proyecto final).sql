@@ -81,12 +81,12 @@ create table Isla_Manguera(
 
 --VENTAS
 create table Ventas(
-id_Venta int primary key identity (1,1),
-id_Isla int,
-Fecha date,
-Hora time(0),
+    id_Venta int primary key identity (1,1),
+    id_Isla int,
+    Fecha date,
+    Hora time(0),
 
-foreign key (id_Isla) references Islas(id_Isla)
+    foreign key (id_Isla) references Islas(id_Isla)
 )
 
 --Reporte guardar
@@ -96,26 +96,35 @@ CREATE TABLE ReporteCuadre
     id_Isla INT,
     Turno VARCHAR(20),
     Fecha DATE,
-    Total DECIMAL(18,2)
 );
 
 --DETALLE_VENTA
 create table Detalle_Venta(
-id_Detalle int primary key identity(1,1),
-id_Venta int,
-id_Empleado int,
-id_Manguera int,
-id_Producto int,
-Precio decimal(6,2),
-LecturaINL decimal(10,2),
-LecturaFNL decimal(10,2),
-Galones decimal(10,2),
-Total decimal(10,2),
+    id_Detalle int primary key identity(1,1),
+    id_Venta int,
+    id_Empleado int,
+    id_Manguera int,
+    id_Producto int,
+    Precio decimal(6,2),
+    LecturaINL decimal(10,2),
+    LecturaFNL decimal(10,2),
+    Galones decimal(10,2),
+    Total decimal(10,2),
 
-foreign key (id_Venta) references Ventas(id_Venta),
-FOREIGN KEY (id_Empleado) REFERENCES Empleado(id_Empleado),
-FOREIGN KEY (id_Manguera) REFERENCES Mangueras(id_Manguera),
-FOREIGN KEY (id_Producto) REFERENCES Productos(id_Producto)
+    foreign key (id_Venta) references Ventas(id_Venta),
+    FOREIGN KEY (id_Empleado) REFERENCES Empleado(id_Empleado),
+    FOREIGN KEY (id_Manguera) REFERENCES Mangueras(id_Manguera),
+    FOREIGN KEY (id_Producto) REFERENCES Productos(id_Producto)
+)
+
+--Hoja detalle
+create table hoja_de_detalle(
+    id_HojaD int identity (1,1)primary key,
+    id_Detalle int,
+    Turno VARCHAR(20),
+    Fecha DATE, 
+
+    FOREIGN KEY (id_Detalle) REFERENCES Detalle_Venta(id_Detalle),
 )
 
 
@@ -129,4 +138,5 @@ select * from Empleado_isla
 select * from Isla_Manguera
 select * from Ventas
 select * from ReporteCuadre
+select * from hoja_de_detalle
 

@@ -16,7 +16,6 @@ namespace Sistema_Cuadre_TotalEnergies
     {
         private readonly Empleado _empleado;
 
-        // DLL para redondear bordes
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn(
             int nLeftRect, int nTopRect,
@@ -26,81 +25,90 @@ namespace Sistema_Cuadre_TotalEnergies
         public Menu_Principal(Empleado empleado)
         {
             InitializeComponent();
-            _empleado = empleado ?? throw new ArgumentNullException(nameof(empleado));
-        }
 
-        // Constructor vacío opcional para pruebas (no recomendado en producción)
-        public Menu_Principal()
-        {
-            InitializeComponent();
+            _empleado = empleado ?? throw new ArgumentNullException(nameof(empleado));
         }
 
         private void Menu_Principal_Load(object sender, EventArgs e)
         {
-            // Redondear botones
-            btncuadre.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, btncuadre.Width, btncuadre.Height, 10, 10));
-            btnhojdetalle.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, btnhojdetalle.Width, btnhojdetalle.Height, 10, 10));
-            btnreport.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, btnreport.Width, btnreport.Height, 10, 10));
-            btnsalida.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, btnsalida.Width, btnsalida.Height, 7, 7));
-            pictureBox2.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, pictureBox2.Width, pictureBox2.Height, 6, 6));
+            // REDONDEAR BOTONES
+            btncuadre.Region = Region.FromHrgn(
+                CreateRoundRectRgn(0, 0, btncuadre.Width, btncuadre.Height, 10, 10));
 
-            // Panel usuario
-            pbusu.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, pictureBox1.Width, pictureBox1.Height, pictureBox1.Width, pictureBox1.Height));
+            btnhojdetalle.Region = Region.FromHrgn(
+                CreateRoundRectRgn(0, 0, btnhojdetalle.Width, btnhojdetalle.Height, 10, 10));
 
-            // Pintado de botones con brillo
+            btnreport.Region = Region.FromHrgn(
+                CreateRoundRectRgn(0, 0, btnreport.Width, btnreport.Height, 10, 10));
+
+            btnsalida.Region = Region.FromHrgn(
+                CreateRoundRectRgn(0, 0, btnsalida.Width, btnsalida.Height, 7, 7));
+
+            pictureBox2.Region = Region.FromHrgn(
+                CreateRoundRectRgn(0, 0, pictureBox2.Width, pictureBox2.Height, 6, 6));
+
+            pbusu.Region = Region.FromHrgn(
+                CreateRoundRectRgn(0, 0, pbusu.Width, pbusu.Height, pbusu.Width, pbusu.Height));
+
+            // EVENTOS PAINT
             btncuadre.Paint += btn_paint;
             btnhojdetalle.Paint += btn_paint;
             btnreport.Paint += btn_paint;
 
-            // Mostrar datos del empleado
-            if (_empleado != null)
-            {
-                label3.Text = _empleado.Nombre;
-                label10.Text = _empleado.Cargo;
-                label4.Text = _empleado.Turno;
-            }
+            // MOSTRAR DATOS
+            label3.Text = _empleado.Nombre;
+            label10.Text = _empleado.Cargo;
+            label4.Text = _empleado.Turno;
         }
 
         private void btn_paint(object sender, PaintEventArgs e)
         {
             if (sender is Button btn)
             {
-                e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                e.Graphics.SmoothingMode =
+                    System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
-                using (SolidBrush brillo = new SolidBrush(Color.FromArgb(40, 255, 255, 255)))
+                using (SolidBrush brillo =
+                    new SolidBrush(Color.FromArgb(40, 255, 255, 255)))
                 {
                     e.Graphics.FillEllipse(brillo, btn.Width - 60, -30, 80, 80);
                 }
             }
         }
 
-        // Cerrar sesión
+        // CERRAR SESION
         private void btnsalida_Click(object sender, EventArgs e)
         {
             this.Hide();
+
             Form1 login = new Form1();
             login.Show();
         }
 
-        // Abrir cuadre de turno
-        private void btncuadre_Click(object sender, EventArgs e)
+        // CUADRE
+        private void btncuadre_Click_1(object sender, EventArgs e)
         {
             Cuadre frm = new Cuadre();
             frm.ShowDialog();
         }
 
-        // Abrir hojas de detalle
-        private void btnhojdetalle_Click(object sender, EventArgs e)
+        // HOJAS DETALLE
+        private void btnhojdetalle_Click_1(object sender, EventArgs e)
         {
             Menu_HojasDetalle frm = new Menu_HojasDetalle();
             frm.ShowDialog();
         }
 
-        // Abrir reportes
-        private void btnreport_Click(object sender, EventArgs e)
+        // REPORTES
+        private void btnreport_Click_1(object sender, EventArgs e)
         {
             Menu_Reportes frm = new Menu_Reportes();
             frm.ShowDialog();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

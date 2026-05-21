@@ -1,4 +1,5 @@
-﻿using Negocio;
+﻿using Entidades;
+using Negocio;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,10 +13,13 @@ using System.Windows.Forms;
 
 namespace Sistema_Cuadre_TotalEnergies
 {
+    
         public partial class Cuadre : Form
-        { 
+        {
+            private Empleado _empleado;
             // CAPA NEGOCIO
             NCuadre negocio = new NCuadre();
+
 
             public Cuadre()
             {
@@ -145,21 +149,21 @@ namespace Sistema_Cuadre_TotalEnergies
                 cmbturno.ValueMember = "Turno";
             }
 
-private void MostrarParametros()
-{
-    int isla = Convert.ToInt32(cmbisla.SelectedValue);
-    string turno = cmbturno.Text;
-    DateTime fecha = dtpfecha.Value.Date;
+        private void MostrarParametros()
+        {
+            int isla = Convert.ToInt32(cmbisla.SelectedValue);
+            string turno = cmbturno.Text;
+            DateTime fecha = dtpfecha.Value.Date;
 
-    DataTable dt = negocio.ObtenerParametros(isla, turno, fecha);
+            DataTable dt = negocio.ObtenerParametros(isla, turno, fecha);
 
-    if (dt.Rows.Count > 0)
-    {
-        label11.Text = dt.Rows[0]["id_Isla"].ToString();
-        label9.Text = dt.Rows[0]["Turno"].ToString();
-        label8.Text = fecha.ToShortDateString();
-    }
-}
+            if (dt.Rows.Count > 0)
+            {
+                label11.Text = dt.Rows[0]["id_Isla"].ToString();
+                label9.Text = dt.Rows[0]["Turno"].ToString();
+                label8.Text = fecha.ToShortDateString();
+            }
+        }
 
         // =========================
         // MOSTRAR DATOS GRID
@@ -204,26 +208,24 @@ private void MostrarParametros()
         // =========================
         // HOJA DETALLE
         // =========================
-        private void btnhojadetalle_Click(
-                object sender,
-                EventArgs e)
-            {
-                // REGISTRAR AUTOMATICAMENTE
-                negocio.RegistrarHojaDetalle(
-                    dtpfecha.Value.Date,
-                    cmbturno.Text);
+        private void btnhojadetalle_Click_1(object sender, EventArgs e)
+        {
+            // REGISTRAR AUTOMATICAMENTE
+            negocio.RegistrarHojaDetalle(
+                dtpfecha.Value.Date,
+                cmbturno.Text);
 
-                // ABRIR FORM EMERGENTE
-                Menu_HojasDetalle frm =
-                    new Menu_HojasDetalle();
+            // ABRIR FORM EMERGENTE
+            Menu_HojasDetalle frm =
+                new Menu_HojasDetalle();
 
-                frm.ShowDialog();
-            }
+            frm.ShowDialog();
+        }
 
         // =========================
         // GENERAR REPORTE
         // =========================
-        private void btngenreport_Click(object sender, EventArgs e)
+        private void btngenreport_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -254,6 +256,12 @@ private void MostrarParametros()
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            Menu_Principal frm = new Menu_Principal(_empleado);
+            frm.ShowDialog();
         }
     }
 }

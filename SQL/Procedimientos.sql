@@ -318,7 +318,8 @@ AS
 BEGIN
     SELECT 
         Nombre,
-        Cargo
+        Cargo,
+        Turno
     FROM Empleado
     WHERE Nombre = @Nombre
     AND Clave = @Clave
