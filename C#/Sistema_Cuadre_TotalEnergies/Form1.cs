@@ -71,7 +71,7 @@ namespace Sistema_Cuadre_TotalEnergies
                 }
 
                 // VALIDAR LIMITE DE CARACTERES
-                if (txtnombre.Text.Length > 40 ||
+                if (txtnombre.Text.Length > 30 ||
                     txtcontra.Text.Length > 30)
                 {
                     MessageBox.Show(
@@ -97,8 +97,8 @@ namespace Sistema_Cuadre_TotalEnergies
 
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@Nombre", txtnombre.Text.Trim());
-                    cmd.Parameters.AddWithValue("@Clave", txtcontra.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Usuario", txtnombre.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Contrasena", txtcontra.Text.Trim());
 
                     SqlDataReader dr = cmd.ExecuteReader();
 
