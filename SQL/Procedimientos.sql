@@ -310,21 +310,6 @@ begin
 end
 exec sp_Reporte @id_Isla = 2, @Turno = 'Matutino', @Fecha = '2026-05-03';
 
-<<<<<<< HEAD
-create or alter proc sp_Iniciar_Sesion
-	@Usuario varchar(30),
-	@Contrasena varchar(30)
-as
-begin
-	select 
-		Nombre,
-		Cargo
-	from Usuarios
-	where Usuario = @Usuario
-	and Contrasena = @Contrasena
-end
-
-=======
 --Validar login
 CREATE OR ALTER PROC sp_Iniciar_Sesion
     @Nombre VARCHAR(30),
@@ -463,4 +448,3 @@ BEGIN
     ORDER BY id_Isla;
 
 END
->>>>>>> 6e5bb5af111c7f4c9648aa3d85d0ea88b76e545f

@@ -43,7 +43,6 @@
   <ItemGroup>
     <Compile Include="NCuadre.cs" />
     <Compile Include="NIsla.cs" />
-    <Compile Include="NReporte.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -55,6 +54,9 @@
       <Project>{8baf559a-3421-4179-a6ed-c650110ae211}</Project>
       <Name>Entidades</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

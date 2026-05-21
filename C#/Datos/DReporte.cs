@@ -6,31 +6,70 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Datos
 {
     public class DReporte
     {
         Conexion conexion = new Conexion();
 
-        // REPORTE GENERAL
-        public DataSet Reporte(int idIsla, string turno, DateTime fecha)
+        // Método que reemplaza al SP sp_MostrarCuadre
+        public DataTable MostrarCuadre(int idIsla, string turno, DateTime fecha)
         {
-            SqlConnection cn = conexion.ObtenerConexion();
+            using (SqlConnection cn = conexion.ObtenerConexion())
+            using (SqlCommand cmd = new SqlCommand("sp_MostrarCuadre", cn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
 
-            SqlCommand cmd = new SqlCommand("sp_Reporte", cn);
-            cmd.CommandType = CommandType.StoredProcedure;
+                // Parámetros exactos del SP
+                cmd.Parameters.AddWithValue("@id_Isla", idIsla);
+                cmd.Parameters.AddWithValue("@Turno", turno);
+                cmd.Parameters.AddWithValue("@Fecha", fecha);
 
-            cmd.Parameters.AddWithValue("@id_Isla", idIsla);
-            cmd.Parameters.AddWithValue("@Turno", turno);
-            cmd.Parameters.AddWithValue("@Fecha", fecha);
+                DataTable dt = new DataTable();
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
 
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
+                return dt;
+            }
+        }
 
-            DataSet ds = new DataSet();
+        // Método para guardar reporte (reemplaza sp_GuardarReporte)
+        public void GuardarReporte(int idIsla, string turno, DateTime fecha, decimal total)
+        {
+            using (SqlConnection cn = conexion.ObtenerConexion())
+            using (SqlCommand cmd = new SqlCommand("sp_GuardarReporte", cn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
 
-            da.Fill(ds);
+                cmd.Parameters.AddWithValue("@id_Isla", idIsla);
+                cmd.Parameters.AddWithValue("@Turno", turno);
+                cmd.Parameters.AddWithValue("@Fecha", fecha);
+                cmd.Parameters.AddWithValue("@Total", total);
 
-            return ds;
+                cn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        // Método que llama a sp_ObtenerParametros
+        public DataTable ObtenerParametros(int idIsla, string turno, DateTime fecha)
+        {
+            using (SqlConnection cn = conexion.ObtenerConexion())
+            using (SqlCommand cmd = new SqlCommand("sp_ObtenerParametros", cn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@id_Isla", idIsla);
+                cmd.Parameters.AddWithValue("@Turno", turno);
+                cmd.Parameters.AddWithValue("@Fecha", fecha);
+
+                DataTable dt = new DataTable();
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+
+                return dt;
+            }
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Sistema_Cuadre_TotalEnergies
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Cuadre());
+            Application.Run(new Form1());
         }
     }
 }

@@ -361,7 +361,7 @@
             this.btnhojadetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnhojadetalle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnhojadetalle.ForeColor = System.Drawing.Color.White;
-            this.btnhojadetalle.Location = new System.Drawing.Point(1010, 247);
+            this.btnhojadetalle.Location = new System.Drawing.Point(1010, 259);
             this.btnhojadetalle.Name = "btnhojadetalle";
             this.btnhojadetalle.Size = new System.Drawing.Size(225, 119);
             this.btnhojadetalle.TabIndex = 15;
