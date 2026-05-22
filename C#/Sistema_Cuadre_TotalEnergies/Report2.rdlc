@@ -16,6 +16,61 @@
     <Style />
   </Page>
   <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="GasolineraDBDataSet2">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>df48db50-18b6-4714-a494-72a6b0ecf00b</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet1">
+      <Query>
+        <DataSourceName>GasolineraDBDataSet2</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Isla">
+          <DataField>Isla</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Ventas Registradas">
+          <DataField>Ventas Registradas</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Transacciones">
+          <DataField>Transacciones</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Total Galones">
+          <DataField>Total Galones</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Total Ventas RD$">
+          <DataField>Total Ventas RD$</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Ticket Promedio RD$">
+          <DataField>Ticket Promedio RD$</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Venta Maxima RD$">
+          <DataField>Venta Maxima RD$</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>GasolineraDBDataSet2</rd:DataSetName>
+        <rd:SchemaPath>C:\Users\pokes\OneDrive\Desktop\Proyecto-Final-main\Proyecto-Final-main\C#\Sistema_Cuadre_TotalEnergies\GasolineraDBDataSet2.xsd</rd:SchemaPath>
+        <rd:TableName>sp_Reporte_Comparativa_Islas</rd:TableName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:TableAdapterName>sp_Reporte_Comparativa_IslasTableAdapter</rd:TableAdapterName>
+      </rd:DataSetInfo>
+    </DataSet>
+  </DataSets>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
-  <rd:ReportID>f10bf453-3e92-4956-89b3-8a4320663622</rd:ReportID>
+  <rd:ReportID>5007d29f-6a50-4cce-a85a-7fb7543821ad</rd:ReportID>
 </Report>

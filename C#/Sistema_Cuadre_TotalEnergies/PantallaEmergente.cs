@@ -10,14 +10,24 @@ using System.Windows.Forms;
 
 namespace Sistema_Cuadre_TotalEnergies
 {
-    public partial class PantallaEmergente : Form
+    public partial class pantallaemergente : Form
     {
-        public PantallaEmergente()
+        public pantallaemergente()
         {
             InitializeComponent();
         }
 
-        private void PantallaEmergente_Load(object sender, EventArgs e)
+        private void label198_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView999_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void pantallaemergente_Load(object sender, EventArgs e)
         {
 
         }

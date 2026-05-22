@@ -56,9 +56,9 @@ namespace Sistema_Cuadre_TotalEnergies
             btnreport.Paint += btn_paint;
 
             // MOSTRAR DATOS
-            label3.Text = _empleado.Nombre;
-            label10.Text = _empleado.Cargo;
-            label4.Text = _empleado.Turno;
+            label13.Text = _empleado.Nombre;
+            label14.Text = _empleado.Cargo;
+            label12.Text = _empleado.Turno;
         }
 
         private void btn_paint(object sender, PaintEventArgs e)
@@ -107,6 +107,11 @@ namespace Sistema_Cuadre_TotalEnergies
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
         }
