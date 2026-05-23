@@ -327,31 +327,25 @@ END
 
 --Guardar Reporte
 CREATE OR ALTER PROC sp_GuardarReporte
-(
     @id_Isla INT,
     @Turno VARCHAR(20),
-    @Fecha DATE,
-    @Total DECIMAL(18,2)
-)
+    @Fecha DATE 
 AS
 BEGIN
-
     INSERT INTO ReporteCuadre
     (
         id_Isla,
         Turno,
-        Fecha,
-        Total
+        Fecha
     )
     VALUES
     (
         @id_Isla,
         @Turno,
-        @Fecha,
-        @Total
-    );
-
+        @Fecha
+    )
 END
+GO
 
 --Obtener parametros
 CREATE OR ALTER PROC sp_ObtenerParametros
@@ -563,5 +557,78 @@ BEGIN
             ELSE 'Nocturno'
         END
     ORDER BY [Total Ventas RD$] DESC;
+END
+GO
+
+-- ListarReportes desde aqui son nuevos
+CREATE OR ALTER PROC sp_ListarReportes
+AS
+BEGIN
+    SELECT 
+        id_Reporte,
+        id_Isla,
+        Turno,
+        Fecha
+    FROM ReporteCuadre
+    ORDER BY Fecha DESC, id_Reporte DESC;
+END
+GO
+
+-- BuscarReportesPorFecha
+CREATE OR ALTER PROC sp_BuscarReportesPorFecha
+    @Fecha DATE
+AS
+BEGIN
+    SELECT 
+        id_Reporte,
+        id_Isla,
+        Turno,
+        Fecha
+    FROM ReporteCuadre
+    WHERE Fecha = @Fecha
+    ORDER BY id_Reporte DESC;
+END
+GO
+
+-- MostrarHojaDetalle
+CREATE OR ALTER PROC sp_MostrarHojaDetalle
+AS
+BEGIN
+    SELECT
+        id_Isla,
+        Turno,
+        Fecha
+    FROM HojaDetalle
+    ORDER BY Fecha DESC;
+END
+GO
+
+-- BuscarHojaDetallePorFecha
+CREATE OR ALTER PROC sp_MostrarHojaDetalle
+AS
+BEGIN
+    SELECT
+        hd.id_HojaD,
+        hd.id_Detalle,
+        hd.Turno,
+        hd.Fecha
+    FROM hoja_de_detalle hd
+    ORDER BY hd.Fecha DESC;
+END
+GO
+
+-- BuscarReportePorParametros
+CREATE OR ALTER PROC sp_BuscarHojaDetallePorFecha
+    @Fecha DATE
+AS
+BEGIN
+    SELECT
+        hd.id_HojaD,
+        hd.id_Detalle,
+        hd.Turno,
+        hd.Fecha
+    FROM hoja_de_detalle hd
+    WHERE hd.Fecha = @Fecha
+    ORDER BY hd.Fecha DESC;
 END
 GO

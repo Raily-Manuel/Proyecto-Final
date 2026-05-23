@@ -119,20 +119,20 @@ namespace Datos
             return dt;
         }
 
-        public void GuardarReporte(EReporte obj)
+        public void GuardarReporte(int idIsla, string turno, DateTime fecha)
         {
-            SqlConnection cn = conexion.ObtenerConexion();
+            using (SqlConnection cn = conexion.ObtenerConexion())
+            using (SqlCommand cmd = new SqlCommand("sp_GuardarReporte", cn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
 
-            SqlCommand cmd = new SqlCommand("sp_GuardarReporte", cn);
-            cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@id_Isla", idIsla);
+                cmd.Parameters.AddWithValue("@Turno", turno);
+                cmd.Parameters.AddWithValue("@Fecha", fecha.Date);
 
-            cmd.Parameters.AddWithValue("@id_Isla", obj.IdIsla);
-            cmd.Parameters.AddWithValue("@Turno", obj.Turno);
-            cmd.Parameters.AddWithValue("@Fecha", obj.Fecha);
-
-            cn.Open();
-            cmd.ExecuteNonQuery();
-            cn.Close();
+                cn.Open();
+                cmd.ExecuteNonQuery();
+            }
         }
 
         public DataSet RegistrarHojaDetalle(DateTime fecha, string turno)

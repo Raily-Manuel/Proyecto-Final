@@ -35,7 +35,7 @@ namespace Datos
         }
 
         // Método para guardar reporte (reemplaza sp_GuardarReporte)
-        public void GuardarReporte(int idIsla, string turno, DateTime fecha, decimal total)
+        public void GuardarReporte(int idIsla, string turno, DateTime fecha)
         {
             using (SqlConnection cn = conexion.ObtenerConexion())
             using (SqlCommand cmd = new SqlCommand("sp_GuardarReporte", cn))
@@ -44,8 +44,7 @@ namespace Datos
 
                 cmd.Parameters.AddWithValue("@id_Isla", idIsla);
                 cmd.Parameters.AddWithValue("@Turno", turno);
-                cmd.Parameters.AddWithValue("@Fecha", fecha);
-                cmd.Parameters.AddWithValue("@Total", total);
+                cmd.Parameters.AddWithValue("@Fecha", fecha.Date);
 
                 cn.Open();
                 cmd.ExecuteNonQuery();
@@ -63,6 +62,94 @@ namespace Datos
                 cmd.Parameters.AddWithValue("@id_Isla", idIsla);
                 cmd.Parameters.AddWithValue("@Turno", turno);
                 cmd.Parameters.AddWithValue("@Fecha", fecha);
+
+                DataTable dt = new DataTable();
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+
+                return dt;
+            }
+        }
+
+        public DataTable ListarReportes()
+        {
+            using (SqlConnection cn = conexion.ObtenerConexion())
+            using (SqlCommand cmd = new SqlCommand("sp_ListarReportes", cn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                DataTable dt = new DataTable();
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+                da.Fill(dt);
+
+                return dt;
+            }
+        }
+
+        // BUSCAR REPORTES POR FECHA
+        public DataTable BuscarReportesPorFecha(DateTime fecha)
+        {
+            using (SqlConnection cn = conexion.ObtenerConexion())
+            using (SqlCommand cmd = new SqlCommand("sp_BuscarReportesPorFecha", cn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@Fecha", fecha);
+
+                DataTable dt = new DataTable();
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+                da.Fill(dt);
+
+                return dt;
+            }
+        }
+
+        public DataTable MostrarHojaDetalle()
+        {
+            using (SqlConnection cn = conexion.ObtenerConexion())
+            using (SqlCommand cmd = new SqlCommand("sp_MostrarHojaDetalle", cn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                DataTable dt = new DataTable();
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+
+                return dt;
+            }
+        }
+
+        public DataTable BuscarHojaDetallePorFecha(DateTime fecha)
+        {
+            using (SqlConnection cn = conexion.ObtenerConexion())
+            using (SqlCommand cmd = new SqlCommand("sp_BuscarHojaDetallePorFecha", cn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@Fecha", fecha.Date);
+
+                DataTable dt = new DataTable();
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+
+                return dt;
+            }
+        }
+
+        public DataTable BuscarReportePorParametros(int idIsla, string turno, DateTime fecha)
+        {
+            using (SqlConnection cn = conexion.ObtenerConexion())
+            using (SqlCommand cmd = new SqlCommand("sp_BuscarReportePorParametros", cn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@id_Isla", idIsla);
+                cmd.Parameters.AddWithValue("@Turno", turno);
+                cmd.Parameters.AddWithValue("@Fecha", fecha.Date);
 
                 DataTable dt = new DataTable();
                 SqlDataAdapter da = new SqlDataAdapter(cmd);

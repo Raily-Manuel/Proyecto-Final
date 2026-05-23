@@ -93,7 +93,6 @@ C:\Users\pokes\OneDrive\Desktop\Proyecto-Final-main\Proyecto-Final-main\C#\Siste
 C:\Users\pokes\OneDrive\Desktop\Proyecto-Final-main\Proyecto-Final-main\C#\Sistema_Cuadre_TotalEnergies\obj\Debug\Sistema_Cuadre_TotalEnergies.Menu_Principal.resources
 C:\Users\pokes\OneDrive\Desktop\Proyecto-Final-main\Proyecto-Final-main\C#\Sistema_Cuadre_TotalEnergies\obj\Debug\Sistema_Cuadre_TotalEnergies.pantallaemergente.resources
 C:\Users\pokes\OneDrive\Desktop\Proyecto-Final-main\Proyecto-Final-main\C#\Sistema_Cuadre_TotalEnergies\obj\Debug\Sistema_Cuadre_TotalEnergies.Properties.Resources.resources
-C:\Users\pokes\OneDrive\Desktop\Proyecto-Final-main\Proyecto-Final-main\C#\Sistema_Cuadre_TotalEnergies\obj\Debug\Sistema_Cuadre_TotalEnergies.Menu_Reportes.resources
 C:\Users\pokes\OneDrive\Desktop\Proyecto-Final-main\Proyecto-Final-main\C#\Sistema_Cuadre_TotalEnergies\obj\Debug\Sistema_Cuadre_TotalEnergies.csproj.GenerateResource.cache
 C:\Users\pokes\OneDrive\Desktop\Proyecto-Final-main\Proyecto-Final-main\C#\Sistema_Cuadre_TotalEnergies\obj\Debug\Sistema_Cuadre_TotalEnergies.csproj.CoreCompileInputs.cache
 C:\Users\pokes\OneDrive\Desktop\Proyecto-Final-main\Proyecto-Final-main\C#\Sistema_Cuadre_TotalEnergies\obj\Debug\Sistema_.22B2C009.Up2Date

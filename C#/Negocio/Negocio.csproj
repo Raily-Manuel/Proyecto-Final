@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="NCuadre.cs" />
     <Compile Include="NIsla.cs" />
+    <Compile Include="NReporte.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

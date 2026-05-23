@@ -12,10 +12,29 @@ namespace Negocio
     {
         DReporte datos = new DReporte();
 
-        // REPORTE GENERAL
-        public DataSet Reporte(int idIsla, string turno, DateTime fecha)
+        public DataTable MostrarReportes()
         {
-            return datos.Reporte(idIsla, turno, fecha);
+            return datos.ListarReportes();
+        }
+
+        public DataTable BuscarPorFecha(DateTime fecha)
+        {
+            return datos.BuscarReportesPorFecha(fecha);
+        }
+
+        public DataTable MostrarHojaDetalle()
+        {
+            return datos.MostrarHojaDetalle();
+        }
+
+        public DataTable BuscarHojaDetallePorFecha(DateTime fecha)
+        {
+            return datos.BuscarHojaDetallePorFecha(fecha);
+        }
+
+        public DataTable BuscarReportePorParametros(int idIsla, string turno, DateTime fecha)
+        {
+            return datos.BuscarReportePorParametros(idIsla, turno, fecha);
         }
     }
 }

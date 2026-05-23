@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entidades;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,24 +13,32 @@ namespace Sistema_Cuadre_TotalEnergies
 {
     public partial class pantallaemergente : Form
     {
-        public pantallaemergente()
+        private Empleado _empleado;
+        int idIsla;
+        string turno;
+        DateTime fecha;
+
+        public pantallaemergente(
+            int idIsla,
+            string turno,
+            DateTime fecha)
         {
             InitializeComponent();
-        }
 
-        private void label198_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dataGridView999_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
+            this.idIsla = idIsla;
+            this.turno = turno;
+            this.fecha = fecha;
         }
 
         private void pantallaemergente_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void pictureBox200_Click(object sender, EventArgs e)
+        {
+            Menu_Principal frm = new Menu_Principal(_empleado);
+            frm.ShowDialog();
         }
     }
 }

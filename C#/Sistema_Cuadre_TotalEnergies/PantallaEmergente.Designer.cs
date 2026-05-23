@@ -32,20 +32,20 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.panel2233 = new System.Windows.Forms.Panel();
-            this.pictureBox1000 = new System.Windows.Forms.PictureBox();
-            this.dateTimePickerxp = new System.Windows.Forms.DateTimePicker();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label35678 = new System.Windows.Forms.Label();
+            this.label36789 = new System.Windows.Forms.Label();
+            this.label13435 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.panel355 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox200 = new System.Windows.Forms.PictureBox();
-            this.label13435 = new System.Windows.Forms.Label();
-            this.label36789 = new System.Windows.Forms.Label();
-            this.label35678 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.panel355 = new System.Windows.Forms.Panel();
+            this.dateTimePickerxp = new System.Windows.Forms.DateTimePicker();
+            this.pictureBox1000 = new System.Windows.Forms.PictureBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel2233.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1000)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox200)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1000)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -92,25 +92,53 @@
             this.panel2233.Size = new System.Drawing.Size(903, 150);
             this.panel2233.TabIndex = 24;
             // 
-            // pictureBox1000
+            // label3
             // 
-            this.pictureBox1000.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1000.Image")));
-            this.pictureBox1000.Location = new System.Drawing.Point(2, 102);
-            this.pictureBox1000.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureBox1000.Name = "pictureBox1000";
-            this.pictureBox1000.Size = new System.Drawing.Size(26, 18);
-            this.pictureBox1000.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1000.TabIndex = 14;
-            this.pictureBox1000.TabStop = false;
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(95, 2);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(197, 37);
+            this.label3.TabIndex = 27;
+            this.label3.Text = "Total Energies";
             // 
-            // dateTimePickerxp
+            // label35678
             // 
-            this.dateTimePickerxp.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePickerxp.Location = new System.Drawing.Point(89, 99);
-            this.dateTimePickerxp.Margin = new System.Windows.Forms.Padding(2);
-            this.dateTimePickerxp.Name = "dateTimePickerxp";
-            this.dateTimePickerxp.Size = new System.Drawing.Size(101, 20);
-            this.dateTimePickerxp.TabIndex = 10;
+            this.label35678.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label35678.AutoSize = true;
+            this.label35678.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label35678.ForeColor = System.Drawing.Color.Black;
+            this.label35678.Location = new System.Drawing.Point(32, 102);
+            this.label35678.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label35678.Name = "label35678";
+            this.label35678.Size = new System.Drawing.Size(51, 19);
+            this.label35678.TabIndex = 26;
+            this.label35678.Text = "Fecha:";
+            // 
+            // label36789
+            // 
+            this.label36789.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label36789.AutoSize = true;
+            this.label36789.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label36789.ForeColor = System.Drawing.Color.Black;
+            this.label36789.Location = new System.Drawing.Point(207, 97);
+            this.label36789.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label36789.Name = "label36789";
+            this.label36789.Size = new System.Drawing.Size(88, 19);
+            this.label36789.TabIndex = 25;
+            this.label36789.Text = "Bienvenido:";
+            // 
+            // label13435
+            // 
+            this.label13435.AutoSize = true;
+            this.label13435.Location = new System.Drawing.Point(300, 100);
+            this.label13435.Name = "label13435";
+            this.label13435.Size = new System.Drawing.Size(41, 13);
+            this.label13435.TabIndex = 24;
+            this.label13435.Text = "label16";
             // 
             // label1
             // 
@@ -123,15 +151,6 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(0, 21);
             this.label1.TabIndex = 8;
-            // 
-            // panel355
-            // 
-            this.panel355.BackColor = System.Drawing.Color.Red;
-            this.panel355.Location = new System.Drawing.Point(-2, 78);
-            this.panel355.Margin = new System.Windows.Forms.Padding(2);
-            this.panel355.Name = "panel355";
-            this.panel355.Size = new System.Drawing.Size(902, 10);
-            this.panel355.TabIndex = 7;
             // 
             // label2
             // 
@@ -156,54 +175,36 @@
             this.pictureBox200.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox200.TabIndex = 6;
             this.pictureBox200.TabStop = false;
+            this.pictureBox200.Click += new System.EventHandler(this.pictureBox200_Click);
             // 
-            // label13435
+            // panel355
             // 
-            this.label13435.AutoSize = true;
-            this.label13435.Location = new System.Drawing.Point(300, 100);
-            this.label13435.Name = "label13435";
-            this.label13435.Size = new System.Drawing.Size(41, 13);
-            this.label13435.TabIndex = 24;
-            this.label13435.Text = "label16";
+            this.panel355.BackColor = System.Drawing.Color.Red;
+            this.panel355.Location = new System.Drawing.Point(-2, 78);
+            this.panel355.Margin = new System.Windows.Forms.Padding(2);
+            this.panel355.Name = "panel355";
+            this.panel355.Size = new System.Drawing.Size(902, 10);
+            this.panel355.TabIndex = 7;
             // 
-            // label36789
+            // dateTimePickerxp
             // 
-            this.label36789.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label36789.AutoSize = true;
-            this.label36789.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label36789.ForeColor = System.Drawing.Color.Black;
-            this.label36789.Location = new System.Drawing.Point(207, 97);
-            this.label36789.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label36789.Name = "label36789";
-            this.label36789.Size = new System.Drawing.Size(88, 19);
-            this.label36789.TabIndex = 25;
-            this.label36789.Text = "Bienvenido:";
+            this.dateTimePickerxp.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePickerxp.Location = new System.Drawing.Point(89, 99);
+            this.dateTimePickerxp.Margin = new System.Windows.Forms.Padding(2);
+            this.dateTimePickerxp.Name = "dateTimePickerxp";
+            this.dateTimePickerxp.Size = new System.Drawing.Size(101, 20);
+            this.dateTimePickerxp.TabIndex = 10;
             // 
-            // label35678
+            // pictureBox1000
             // 
-            this.label35678.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label35678.AutoSize = true;
-            this.label35678.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label35678.ForeColor = System.Drawing.Color.Black;
-            this.label35678.Location = new System.Drawing.Point(32, 102);
-            this.label35678.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label35678.Name = "label35678";
-            this.label35678.Size = new System.Drawing.Size(51, 19);
-            this.label35678.TabIndex = 26;
-            this.label35678.Text = "Fecha:";
-            // 
-            // label3
-            // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
-            this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(95, 2);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(197, 37);
-            this.label3.TabIndex = 27;
-            this.label3.Text = "Total Energies";
+            this.pictureBox1000.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1000.Image")));
+            this.pictureBox1000.Location = new System.Drawing.Point(2, 102);
+            this.pictureBox1000.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox1000.Name = "pictureBox1000";
+            this.pictureBox1000.Size = new System.Drawing.Size(26, 18);
+            this.pictureBox1000.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1000.TabIndex = 14;
+            this.pictureBox1000.TabStop = false;
             // 
             // dataGridView1
             // 
@@ -227,8 +228,8 @@
             this.Load += new System.EventHandler(this.pantallaemergente_Load);
             this.panel2233.ResumeLayout(false);
             this.panel2233.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1000)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox200)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1000)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

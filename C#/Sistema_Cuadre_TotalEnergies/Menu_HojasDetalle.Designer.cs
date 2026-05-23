@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Menu_HojasDetalle));
             this.panel234 = new System.Windows.Forms.Panel();
+            this.btn2xp = new System.Windows.Forms.Button();
+            this.btnbuscarhojadedetalle = new System.Windows.Forms.Button();
             this.pictureBox110 = new System.Windows.Forms.PictureBox();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.label144 = new System.Windows.Forms.Label();
@@ -39,8 +41,6 @@
             this.pictureBox88 = new System.Windows.Forms.PictureBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.btnbuscarhojadedetalle = new System.Windows.Forms.Button();
-            this.btn2xp = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel234.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox110)).BeginInit();
@@ -68,7 +68,40 @@
             this.panel234.Name = "panel234";
             this.panel234.Size = new System.Drawing.Size(891, 136);
             this.panel234.TabIndex = 15;
-            this.panel234.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            // 
+            // btn2xp
+            // 
+            this.btn2xp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btn2xp.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn2xp.FlatAppearance.BorderSize = 0;
+            this.btn2xp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn2xp.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn2xp.ForeColor = System.Drawing.Color.White;
+            this.btn2xp.Location = new System.Drawing.Point(386, 98);
+            this.btn2xp.Margin = new System.Windows.Forms.Padding(2);
+            this.btn2xp.Name = "btn2xp";
+            this.btn2xp.Size = new System.Drawing.Size(150, 31);
+            this.btn2xp.TabIndex = 17;
+            this.btn2xp.Text = "Mostrar todo";
+            this.btn2xp.UseVisualStyleBackColor = false;
+            this.btn2xp.Click += new System.EventHandler(this.btn2xp_Click);
+            // 
+            // btnbuscarhojadedetalle
+            // 
+            this.btnbuscarhojadedetalle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnbuscarhojadedetalle.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnbuscarhojadedetalle.FlatAppearance.BorderSize = 0;
+            this.btnbuscarhojadedetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnbuscarhojadedetalle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnbuscarhojadedetalle.ForeColor = System.Drawing.Color.White;
+            this.btnbuscarhojadedetalle.Location = new System.Drawing.Point(207, 98);
+            this.btnbuscarhojadedetalle.Margin = new System.Windows.Forms.Padding(2);
+            this.btnbuscarhojadedetalle.Name = "btnbuscarhojadedetalle";
+            this.btnbuscarhojadedetalle.Size = new System.Drawing.Size(150, 31);
+            this.btnbuscarhojadedetalle.TabIndex = 16;
+            this.btnbuscarhojadedetalle.Text = "Buscar";
+            this.btnbuscarhojadedetalle.UseVisualStyleBackColor = false;
+            this.btnbuscarhojadedetalle.Click += new System.EventHandler(this.btnbuscarhojadedetalle_Click);
             // 
             // pictureBox110
             // 
@@ -147,6 +180,7 @@
             this.pictureBox88.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox88.TabIndex = 6;
             this.pictureBox88.TabStop = false;
+            this.pictureBox88.Click += new System.EventHandler(this.pictureBox88_Click);
             // 
             // label13
             // 
@@ -174,38 +208,6 @@
             this.label12.TabIndex = 1;
             this.label12.Text = "Menu hoja de detalle";
             // 
-            // btnbuscarhojadedetalle
-            // 
-            this.btnbuscarhojadedetalle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnbuscarhojadedetalle.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnbuscarhojadedetalle.FlatAppearance.BorderSize = 0;
-            this.btnbuscarhojadedetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnbuscarhojadedetalle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnbuscarhojadedetalle.ForeColor = System.Drawing.Color.White;
-            this.btnbuscarhojadedetalle.Location = new System.Drawing.Point(207, 98);
-            this.btnbuscarhojadedetalle.Margin = new System.Windows.Forms.Padding(2);
-            this.btnbuscarhojadedetalle.Name = "btnbuscarhojadedetalle";
-            this.btnbuscarhojadedetalle.Size = new System.Drawing.Size(150, 31);
-            this.btnbuscarhojadedetalle.TabIndex = 16;
-            this.btnbuscarhojadedetalle.Text = "Buscar";
-            this.btnbuscarhojadedetalle.UseVisualStyleBackColor = false;
-            // 
-            // btn2xp
-            // 
-            this.btn2xp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btn2xp.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn2xp.FlatAppearance.BorderSize = 0;
-            this.btn2xp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn2xp.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn2xp.ForeColor = System.Drawing.Color.White;
-            this.btn2xp.Location = new System.Drawing.Point(386, 98);
-            this.btn2xp.Margin = new System.Windows.Forms.Padding(2);
-            this.btn2xp.Name = "btn2xp";
-            this.btn2xp.Size = new System.Drawing.Size(150, 31);
-            this.btn2xp.TabIndex = 17;
-            this.btn2xp.Text = "Mostrar todo";
-            this.btn2xp.UseVisualStyleBackColor = false;
-            // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -222,7 +224,7 @@
             this.ClientSize = new System.Drawing.Size(888, 410);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.panel234);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Menu_HojasDetalle";
             this.Text = "Hoja_Detalle";
             this.panel234.ResumeLayout(false);

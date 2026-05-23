@@ -152,6 +152,12 @@ namespace Sistema_Cuadre_TotalEnergies
                     MessageBoxIcon.Error
                 );
             }
+            finally
+            {
+                txtcontra.Clear();
+
+                txtnombre.Focus();
+            }
         }
     }
 }

@@ -16,15 +16,15 @@ namespace Sistema_Cuadre_TotalEnergies
     
         public partial class Cuadre : Form
         {
-            private Empleado _empleado;
-            // CAPA NEGOCIO
-            NCuadre negocio = new NCuadre();
+        private Empleado empleadoActual;
+        // CAPA NEGOCIO
+        NCuadre negocio = new NCuadre();
 
-
-            public Cuadre()
-            {
-                InitializeComponent();
-            }
+        public Cuadre(Empleado empleado)
+        {
+             InitializeComponent();
+            empleadoActual = empleado;
+        }
 
             [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
             private static extern IntPtr Redondeo(
@@ -203,6 +203,12 @@ namespace Sistema_Cuadre_TotalEnergies
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
+            finally
+            {
+                dataGridView1.ClearSelection();
+
+                cmbisla.Focus();
+            }
         }
 
         // =========================
@@ -210,6 +216,7 @@ namespace Sistema_Cuadre_TotalEnergies
         // =========================
         private void btnhojadetalle_Click_1(object sender, EventArgs e)
         {
+
             // REGISTRAR AUTOMATICAMENTE
             negocio.RegistrarHojaDetalle(
                 dtpfecha.Value.Date,
@@ -217,7 +224,7 @@ namespace Sistema_Cuadre_TotalEnergies
 
             // ABRIR FORM EMERGENTE
             Menu_HojasDetalle frm =
-                new Menu_HojasDetalle();
+                new Menu_HojasDetalle(empleadoActual);
 
             frm.ShowDialog();
         }
@@ -233,19 +240,16 @@ namespace Sistema_Cuadre_TotalEnergies
                 string turno = cmbturno.Text;
                 DateTime fecha = dtpfecha.Value.Date;
 
-                // Calcular Total (por ejemplo sumando la columna "Total Ventas" del DataGridView)
-                decimal total = 0;
-                foreach (DataGridViewRow row in dataGridView1.Rows)
-                {
-                    if (row.Cells["Total Ventas"].Value != null)
-                        total += Convert.ToDecimal(row.Cells["Total Ventas"].Value);
-                }
+                // Guardar reporte SIN total
+                negocio.GuardarReporte(isla, turno, fecha);
 
-                // Guardar reporte usando el SP adaptado
-                negocio.GuardarReporte(isla, turno, fecha, total);
+                MessageBox.Show(
+                    "Reporte generado correctamente.",
+                    "Reporte",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
 
-                // Mostrar Formulario de Reportes
-                Menu_Reportes frm = new Menu_Reportes();
+                Menuparareportes frm = new Menuparareportes(empleadoActual);
                 frm.ShowDialog();
             }
             catch (Exception ex)
@@ -256,12 +260,18 @@ namespace Sistema_Cuadre_TotalEnergies
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
+            finally
+            {
+                dataGridView1.ClearSelection();
+                cmbisla.Focus();
+            }
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            Menu_Principal frm = new Menu_Principal(_empleado);
-            frm.ShowDialog();
+            Menu_Principal menu = new Menu_Principal(empleadoActual);
+            menu.Show();
+            this.Close();
         }
     }
 }

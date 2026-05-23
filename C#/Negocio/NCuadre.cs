@@ -75,9 +75,9 @@ namespace Negocio
             return datosReporte.ObtenerParametros(isla, turno, fecha);
         }
 
-        public void GuardarReporte(int isla, string turno, DateTime fecha, decimal total)
+        public void GuardarReporte(int idIsla, string turno, DateTime fecha)
         {
-            datosReporte.GuardarReporte(isla, turno, fecha, total);
+            datosReporte.GuardarReporte(idIsla, turno, fecha);
         }
     }
 }

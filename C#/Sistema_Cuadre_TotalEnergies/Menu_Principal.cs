@@ -88,27 +88,28 @@ namespace Sistema_Cuadre_TotalEnergies
         // CUADRE
         private void btncuadre_Click_1(object sender, EventArgs e)
         {
-            Cuadre frm = new Cuadre();
+            Cuadre frm = new Cuadre(_empleado);
             frm.ShowDialog();
         }
 
         // HOJAS DETALLE
         private void btnhojdetalle_Click_1(object sender, EventArgs e)
         {
-            Menu_HojasDetalle frm = new Menu_HojasDetalle();
+            Menu_HojasDetalle frm = new Menu_HojasDetalle(_empleado);
             frm.ShowDialog();
         }
 
         // REPORTES
         private void btnreport_Click_1(object sender, EventArgs e)
         {
-            Menu_Reportes frm = new Menu_Reportes();
+            Menuparareportes frm = new Menuparareportes(_empleado);
             frm.ShowDialog();
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-
+            Menu_Principal frm = new Menu_Principal(_empleado);
+            frm.ShowDialog();
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
