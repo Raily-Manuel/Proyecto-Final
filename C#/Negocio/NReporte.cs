@@ -36,5 +36,11 @@ namespace Negocio
         {
             return datos.BuscarReportePorParametros(idIsla, turno, fecha);
         }
+
+        public void RegistrarHojaDetalle(int idDetalle, string turno, DateTime fecha)
+        {
+           datos.RegistrarHojaDetalle(idDetalle, turno, fecha);
+        }
+        
     }
 }

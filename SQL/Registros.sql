@@ -689,4 +689,17 @@ UNION ALL
 SELECT 'Isla_Manguera',COUNT(*) FROM Isla_Manguera;
 GO
 
+INSERT INTO hoja_de_detalle (id_Detalle, Turno, Fecha)
+VALUES
+(1, 'Mañana', '2026-05-23'),
+(2, 'Tarde', '2026-05-23'),
+(3, 'Noche', '2026-05-23'),
+(4, 'Mañana', '2026-05-24'),
+(5, 'Tarde', '2026-05-24'),S
+(6, 'Noche', '2026-05-24'),
+(7, 'Mañana', '2026-05-25'),
+(8, 'Tarde', '2026-05-25'),
+(9, 'Noche', '2026-05-25'),
+(10, 'Mañana', '2026-05-26');
+
 select * from Empleado

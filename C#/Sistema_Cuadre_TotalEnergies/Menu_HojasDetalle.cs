@@ -1,5 +1,6 @@
 ﻿using Entidades;
 using Negocio;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -74,7 +75,21 @@ namespace Sistema_Cuadre_TotalEnergies
 
         private void btn2xp_Click(object sender, EventArgs e)
         {
-            MostrarHojasDetalle();
+            try
+            {
+                dataGridView1.DataSource =
+                    negocio.MostrarHojaDetalle();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error al mostrar hojas de detalle: "
+                    + ex.Message);
+            }
+            finally
+            {
+                dataGridView1.ClearSelection();
+            }
         }
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

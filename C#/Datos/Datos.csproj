@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Conexion.cs" />
+    <Compile Include="Dbackup.cs" />
     <Compile Include="DCuadre.cs" />
     <Compile Include="DIsla.cs" />
     <Compile Include="DReporte.cs" />

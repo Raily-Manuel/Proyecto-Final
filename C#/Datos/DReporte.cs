@@ -158,5 +158,21 @@ namespace Datos
                 return dt;
             }
         }
+
+        public void RegistrarHojaDetalle(int idDetalle, string turno, DateTime fecha)
+        {
+            using (SqlConnection cn = conexion.ObtenerConexion())
+            using (SqlCommand cmd = new SqlCommand("sp_RegistrarHojaDetalle", cn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@id_Detalle", idDetalle);
+                cmd.Parameters.AddWithValue("@Turno", turno);
+                cmd.Parameters.AddWithValue("@Fecha", fecha.Date);
+
+                cn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
 }

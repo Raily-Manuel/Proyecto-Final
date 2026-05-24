@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Nbackup.cs" />
     <Compile Include="NCuadre.cs" />
     <Compile Include="NIsla.cs" />
     <Compile Include="NReporte.cs" />

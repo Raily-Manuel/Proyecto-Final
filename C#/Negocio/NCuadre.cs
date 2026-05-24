@@ -14,9 +14,7 @@ namespace Negocio
         DCuadre datosCuadre = new DCuadre(); // Métodos de cuadre antiguos
         DReporte datosReporte = new DReporte(); // Métodos de reporte antiguos
 
-        // -----------------------------
         // MÉTODOS DE CUADRE
-        // -----------------------------
         public DataTable CalculoCuadre(int idIsla, string turno, DateTime fecha)
         {
             return datosCuadre.CalculoCuadre(idIsla, turno, fecha);

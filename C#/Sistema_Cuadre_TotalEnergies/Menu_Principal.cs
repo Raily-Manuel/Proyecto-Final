@@ -1,4 +1,5 @@
 ﻿using Entidades;
+using Negocio;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +10,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace Sistema_Cuadre_TotalEnergies
 {
@@ -115,6 +117,49 @@ namespace Sistema_Cuadre_TotalEnergies
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void btnbackup_Click(object sender, EventArgs e)
+        {
+            NBackup negocio = new NBackup();
+            try
+            {
+                SaveFileDialog guardar = new SaveFileDialog();
+
+                guardar.Filter =
+                    "Backup SQL Server (*.bak)|*.bak";
+
+                guardar.Title =
+                    "Guardar backup de la base de datos";
+
+                guardar.FileName =
+                    "Backup_Gasolinera_" +
+                    DateTime.Now.ToString("yyyyMMdd_HHmmss")
+                    + ".bak";
+
+                if (guardar.ShowDialog() == DialogResult.OK)
+                {
+                    negocio.RealizarBackup(guardar.FileName);
+
+                    MessageBox.Show(
+                        "Backup realizado correctamente.",
+                        "Backup",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error al realizar backup: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+            finally
+            {
+                btnbackup.Focus();
+            }
         }
     }
 }

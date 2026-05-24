@@ -632,3 +632,38 @@ BEGIN
     ORDER BY hd.Fecha DESC;
 END
 GO
+
+-- RegistrarHojaDetalle
+
+CREATE OR ALTER PROC sp_RegistrarHojaDetalle
+    @id_Detalle INT,
+    @Turno VARCHAR(20),
+    @Fecha DATE
+AS
+BEGIN
+    INSERT INTO hoja_de_detalle
+    (
+        id_Detalle,
+        Turno,
+        Fecha
+    )
+    VALUES
+    (
+        @id_Detalle,
+        @Turno,
+        @Fecha
+    );
+END
+GO
+
+-- hacer backup
+CREATE OR ALTER PROC sp_BackupBaseDatos
+    @Ruta NVARCHAR(500)
+AS
+BEGIN
+    BACKUP DATABASE GasolineraDB
+    TO DISK = @Ruta
+    WITH INIT, FORMAT;
+END
+GO
+
