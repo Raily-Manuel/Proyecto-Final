@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Entidades;
+using Negocio;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,69 +13,266 @@ using System.Windows.Forms;
 
 namespace Sistema_Cuadre_TotalEnergies
 {
-    public partial class Cuadre : Form
-    {
-        public Cuadre()
+    
+        public partial class Cuadre : Form
         {
-            InitializeComponent();
+        private Empleado empleadoActual;
+        // CAPA NEGOCIO
+        NCuadre negocio = new NCuadre();
+
+        public Cuadre(Empleado empleado)
+        {
+             InitializeComponent();
+            empleadoActual = empleado;
         }
 
-        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
-        private static extern IntPtr Redondeo(
-        int nLeftRect, int nTopRect,
-        int nRightRect, int nBottomRect,
-        int nWidthEllipse, int nHeightEllipse);
+            [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+            private static extern IntPtr Redondeo(
+            int nLeftRect, int nTopRect,
+            int nRightRect, int nBottomRect,
+            int nWidthEllipse, int nHeightEllipse);
 
-        private void Cuadre_Load(object sender, EventArgs e)
-        {
-            Mensaje_combo(cmbisla, "Seleccionar isla");
-            Mensaje_combo(cmbturno, "Seleccionar turno");
+            private Timer _reloj;
 
-            cmbisla.Font = new Font("Segoe UI", 9f);
-            cmbturno.Font = new Font("Segoe UI", 9f);
-            dtpfecha.Font = new Font("Segoe UI", 9f);
-
-            // Mostrar inmediatamente
-            ActualizarReloj();
-
-            // Iniciar timer cada segundo
-            _reloj = new Timer { Interval = 1000 };
-            _reloj.Tick += (s, ev) => ActualizarReloj();
-            _reloj.Start();
-
-            btnhojadetalle.Region = Region.FromHrgn(Redondeo(0, 0, btnhojadetalle.Width, btnhojadetalle.Height, 10, 10));
-            btngenreport.Region = Region.FromHrgn(Redondeo(0, 0, btngenreport.Width, btngenreport.Height, 10, 10));
-
-        }
-
-        private void Mensaje_combo(ComboBox cmb, string mensaje)
-        {
-            cmb.Items.Insert(0, mensaje);
-            cmb.SelectedIndex = 0;
-            cmb.ForeColor = Color.Gray;
-
-            cmb.SelectedIndexChanged += (s, e) =>
+            private void Cuadre_Load(object sender, EventArgs e)
             {
-                if (cmb.SelectedIndex == 0)
-                    cmb.ForeColor = Color.Gray;
-                else
-                    cmb.ForeColor = Color.FromArgb(28, 28, 46);
-            };
+                Mensaje_combo(cmbisla, "Seleccionar isla");
+                Mensaje_combo(cmbturno, "Seleccionar turno");
+
+                cmbisla.Font = new Font("Segoe UI", 9f);
+                cmbturno.Font = new Font("Segoe UI", 9f);
+                dtpfecha.Font = new Font("Segoe UI", 9f);
+
+                // CARGAR DATOS COMBOBOX
+                CargarIslas();
+                CargarTurnos();
+
+                // Mostrar inmediatamente
+                ActualizarReloj();
+
+                // Iniciar timer cada segundo
+                _reloj = new Timer { Interval = 1000 };
+
+                _reloj.Tick += (s, ev) => ActualizarReloj();
+
+                _reloj.Start();
+
+                btnhojadetalle.Region = Region.FromHrgn(
+                    Redondeo(0, 0,
+                    btnhojadetalle.Width,
+                    btnhojadetalle.Height,
+                    10, 10));
+
+                btngenreport.Region = Region.FromHrgn(
+                    Redondeo(0, 0,
+                    btngenreport.Width,
+                    btngenreport.Height,
+                    10, 10));
+            }
+
+            // =========================
+            // MENSAJE COMBOBOX
+            // =========================
+            private void Mensaje_combo(
+                ComboBox cmb,
+                string mensaje)
+            {
+                cmb.Items.Insert(0, mensaje);
+
+                cmb.SelectedIndex = 0;
+
+                cmb.ForeColor = Color.Gray;
+
+                cmb.SelectedIndexChanged += (s, e) =>
+                {
+                    if (cmb.SelectedIndex == 0)
+                        cmb.ForeColor = Color.Gray;
+                    else
+                        cmb.ForeColor = Color.FromArgb(28, 28, 46);
+                };
+            }
+
+            // =========================
+            // RELOJ
+            // =========================
+            private void ActualizarReloj()
+            {
+                var cultura =
+                    new System.Globalization.CultureInfo("es-DO");
+
+                lblfecha.Text =
+                    DateTime.Now.ToString(
+                        "dddd, dd 'de' MMMM yyyy",
+                        cultura);
+
+                lblhora.Text =
+                    DateTime.Now.ToString(
+                        "hh:mm:ss tt",
+                        cultura);
+            }
+
+            // =========================
+            // DETENER TIMER
+            // =========================
+            private void Cuadre_FormClosing(
+                object sender,
+                FormClosingEventArgs e)
+            {
+                _reloj?.Stop();
+
+                _reloj?.Dispose();
+            }
+
+            // =========================
+            // CARGAR ISLAS
+            // =========================
+            private void CargarIslas()
+            {
+                cmbisla.DataSource =
+                    negocio.MostrarDatosIsla();
+
+                cmbisla.DisplayMember = "NomIsla";
+
+                cmbisla.ValueMember = "id_Isla";
+            }
+
+            // =========================
+            // CARGAR TURNOS
+            // =========================
+            private void CargarTurnos()
+            {
+                cmbturno.DataSource =
+                    negocio.MostrarTurnos();
+
+                cmbturno.DisplayMember = "Turno";
+
+                cmbturno.ValueMember = "Turno";
+            }
+
+        private void MostrarParametros()
+        {
+            int isla = Convert.ToInt32(cmbisla.SelectedValue);
+            string turno = cmbturno.Text;
+            DateTime fecha = dtpfecha.Value.Date;
+
+            DataTable dt = negocio.ObtenerParametros(isla, turno, fecha);
+
+            if (dt.Rows.Count > 0)
+            {
+                label11.Text = dt.Rows[0]["id_Isla"].ToString();
+                label9.Text = dt.Rows[0]["Turno"].ToString();
+                label8.Text = fecha.ToShortDateString();
+            }
         }
 
-        private Timer _reloj;
-        private void ActualizarReloj()
+        // =========================
+        // MOSTRAR DATOS GRID
+        // =========================
+        private void btnbuscar_Click(object sender, EventArgs e)
         {
-            var cultura = new System.Globalization.CultureInfo("es-DO");
-            lblfecha.Text = DateTime.Now.ToString("dddd, dd 'de' MMMM yyyy", cultura);
-            lblhora.Text = DateTime.Now.ToString("hh:mm:ss tt", cultura);
+            try
+            {
+                int isla = Convert.ToInt32(cmbisla.SelectedValue);
+                string turno = cmbturno.Text;
+                DateTime fecha = dtpfecha.Value.Date;
+
+                // Llamada al método de negocio que retorna DataTable
+                DataTable dt = negocio.MostrarCuadre(isla, turno, fecha);
+
+                // Asignar resultado al DataGridView
+                dataGridView1.DataSource = dt;
+
+                // Mostrar parámetros (Ventas, Total, Galones, Balance)
+                MostrarParametros();
+
+                // Mensaje si no hay datos
+                if (dt.Rows.Count == 0)
+                {
+                    MessageBox.Show(
+                        "No se encontraron registros para los parámetros seleccionados.",
+                        "Aviso",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error al buscar cuadre: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+            finally
+            {
+                dataGridView1.ClearSelection();
+
+                cmbisla.Focus();
+            }
         }
 
-        // Detener el timer al cerrar el form
-        private void Cuadre_FormClosing(object sender, FormClosingEventArgs e)
+        // =========================
+        // HOJA DETALLE
+        // =========================
+        private void btnhojadetalle_Click_1(object sender, EventArgs e)
         {
-            _reloj?.Stop();
-            _reloj?.Dispose();
+
+            // REGISTRAR AUTOMATICAMENTE
+            negocio.RegistrarHojaDetalle(
+                dtpfecha.Value.Date,
+                cmbturno.Text);
+
+            // ABRIR FORM EMERGENTE
+            Menu_HojasDetalle frm =
+                new Menu_HojasDetalle(empleadoActual);
+
+            frm.ShowDialog();
+        }
+
+        // =========================
+        // GENERAR REPORTE
+        // =========================
+        private void btngenreport_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                int isla = Convert.ToInt32(cmbisla.SelectedValue);
+                string turno = cmbturno.Text;
+                DateTime fecha = dtpfecha.Value.Date;
+
+                // Guardar reporte SIN total
+                negocio.GuardarReporte(isla, turno, fecha);
+
+                MessageBox.Show(
+                    "Reporte generado correctamente.",
+                    "Reporte",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+
+                Menuparareportes frm = new Menuparareportes(empleadoActual);
+                frm.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error al generar reporte: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+            finally
+            {
+                dataGridView1.ClearSelection();
+                cmbisla.Focus();
+            }
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            Menu_Principal menu = new Menu_Principal(empleadoActual);
+            menu.Show();
+            this.Close();
         }
     }
 }
+

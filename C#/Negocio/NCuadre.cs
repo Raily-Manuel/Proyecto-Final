@@ -1,4 +1,5 @@
 ﻿using Datos;
+using Entidades;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,36 +11,71 @@ namespace Negocio
 {
     public class NCuadre
     {
-        DCuadre datos = new DCuadre();
+        DCuadre datosCuadre = new DCuadre(); // Métodos de cuadre antiguos
+        DReporte datosReporte = new DReporte(); // Métodos de reporte antiguos
 
-        // CALCULO CUADRE
+        // MÉTODOS DE CUADRE
         public DataTable CalculoCuadre(int idIsla, string turno, DateTime fecha)
         {
-            return datos.CalculoCuadre(idIsla, turno, fecha);
+            return datosCuadre.CalculoCuadre(idIsla, turno, fecha);
         }
 
-        // TOTAL GALONES
         public DataTable TotalGalones(int idIsla, string turno, DateTime fecha)
         {
-            return datos.TotalGalones(idIsla, turno, fecha);
+            return datosCuadre.TotalGalones(idIsla, turno, fecha);
         }
 
-        // TOTAL VENTAS
         public DataTable TotalVentas(int idIsla, string turno, DateTime fecha)
         {
-            return datos.TotalVentas(idIsla, turno, fecha);
+            return datosCuadre.TotalVentas(idIsla, turno, fecha);
         }
 
-        // CANTIDAD TRANSACCIONES
         public DataTable CantidadTransacciones(int idIsla, string turno, DateTime fecha)
         {
-            return datos.CantidadTransacciones(idIsla, turno, fecha);
+            return datosCuadre.CantidadTransacciones(idIsla, turno, fecha);
         }
 
-        // PROMEDIO VENTA
         public DataTable PromedioVenta(int idIsla, string turno, DateTime fecha)
         {
-            return datos.PromedioVenta(idIsla, turno, fecha);
+            return datosCuadre.PromedioVenta(idIsla, turno, fecha);
+        }
+
+        public DataSet RegistrarHojaDetalle(DateTime fecha, string turno)
+        {
+            return datosCuadre.RegistrarHojaDetalle(fecha, turno);
+        }
+
+        public DataTable MostrarCuadre(ECuadre obj)
+        {
+            return datosCuadre.MostrarCuadre(obj);
+        }
+
+        public DataTable MostrarTurnos()
+        {
+            return datosCuadre.MostrarTurnos();
+        }
+
+        public DataTable MostrarDatosIsla()
+        {
+            return datosCuadre.MostrarDatosIsla();
+        }
+
+        // -----------------------------
+        // MÉTODOS DE REPORTE
+        // -----------------------------
+        public DataTable MostrarCuadre(int isla, string turno, DateTime fecha)
+        {
+            return datosReporte.MostrarCuadre(isla, turno, fecha);
+        }
+
+        public DataTable ObtenerParametros(int isla, string turno, DateTime fecha)
+        {
+            return datosReporte.ObtenerParametros(isla, turno, fecha);
+        }
+
+        public void GuardarReporte(int idIsla, string turno, DateTime fecha)
+        {
+            datosReporte.GuardarReporte(idIsla, turno, fecha);
         }
     }
 }

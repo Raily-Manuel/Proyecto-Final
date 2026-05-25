@@ -2,42 +2,69 @@
 use GasolineraDB
 
 --MOSTRAR DATOS DE ISLA EN EL DGV
-create or alter proc sp_Mostrar_Datos_Isla
-	@id_Isla int,
-	@Turno varchar(20),
-	@Fecha DATE
-as
-begin
-	select 
-		m.id_Manguera as [No. Manguera],
-		P.NomProducto as Producto,
-		P.Precio_Litro as Precio,
+CREATE OR ALTER PROC sp_Hoja_Detalle
+(
+    @Fecha DATE,
+    @Turno VARCHAR(20)
+)
+AS
+BEGIN
 
-		min(dv.LecturaINL) as [L.Inicial],
-		max(dv.LecturaFNL) as [L.Final],
+    SELECT
+        m.id_Manguera AS [No. Mg.],
+        p.NomProducto AS Producto,
+        p.Precio_Litro AS Precio,
 
-		isnull(sum(dv.Galones), 0) as Galones,
-		isnull(sum(dv.Total), 0) as [Total Ventas]
+        MIN(dv.LecturaINL) AS [L.Inicial],
+        MAX(dv.LecturaFNL) AS [L.Final],
 
-	from Isla_Manguera im
-	inner join Mangueras m on im.id_Manguera = m.id_Manguera
-	inner join Productos p on m.id_Producto = p.id_Producto
+        ISNULL(SUM(dv.Galones), 0) AS Galones,
+        ISNULL(SUM(dv.Total), 0) AS Importe
 
-	left join Detalle_Venta dv on m.id_Manguera = dv.id_Manguera
-	left join Ventas v on dv.id_Venta = v.id_Venta
-		and v.id_Isla = @id_Isla
-		and v.Fecha = @Fecha
-		and(
-			(@Turno = 'Matutino' and v.Hora >= '6:00' and v.Hora < '14:00')
-			or (@Turno = 'Vespertino' and v.Hora >= '14:00' and v.Hora < '22:00')
-			or (@Turno = 'Nocturno' and (v.Hora >= '22:00' or v.Hora < '6:00'))
-		)
+    FROM Mangueras m
 
-	where im.id_Isla = @id_Isla
-		
-	group by m.id_Manguera, p.NomProducto, p.Precio_Litro
-	order by m.id_Manguera
-end
+    INNER JOIN Productos p
+        ON m.id_Producto = p.id_Producto
+
+    LEFT JOIN Detalle_Venta dv
+        ON m.id_Manguera = dv.id_Manguera
+
+    LEFT JOIN Ventas v
+        ON dv.id_Venta = v.id_Venta
+        AND v.Fecha = @Fecha
+        AND(
+            (@Turno = 'Matutino' AND v.Hora >= '06:00' AND v.Hora < '14:00')
+            OR (@Turno = 'Vespertino' AND v.Hora >= '14:00' AND v.Hora < '22:00')
+            OR (@Turno = 'Nocturno' AND (v.Hora >= '22:00' OR v.Hora < '06:00'))
+        )
+
+    GROUP BY
+        m.id_Manguera,
+        p.NomProducto,
+        p.Precio_Litro
+
+    ORDER BY m.id_Manguera;
+
+
+    /* TOTALES GENERALES */
+
+    SELECT
+        ISNULL(SUM(dv.Galones), 0) AS Total_Galones,
+        ISNULL(SUM(dv.Total), 0) AS Total_Ventas
+
+    FROM Detalle_Venta dv
+
+    INNER JOIN Ventas v
+        ON dv.id_Venta = v.id_Venta
+
+    WHERE v.Fecha = @Fecha
+    AND(
+        (@Turno = 'Matutino' AND v.Hora >= '06:00' AND v.Hora < '14:00')
+        OR (@Turno = 'Vespertino' AND v.Hora >= '14:00' AND v.Hora < '22:00')
+        OR (@Turno = 'Nocturno' AND (v.Hora >= '22:00' OR v.Hora < '06:00'))
+    );
+
+END
 
 exec sp_Mostrar_Datos_Isla @id_Isla = 4, @Turno = 'Nocturno', @Fecha = '2026-05-03';
 
@@ -291,8 +318,352 @@ AS
 BEGIN
     SELECT 
         Nombre,
-        Cargo
+        Cargo,
+        Turno
     FROM Empleado
     WHERE Nombre = @Nombre
     AND Clave = @Clave
 END
+
+--Guardar Reporte
+CREATE OR ALTER PROC sp_GuardarReporte
+    @id_Isla INT,
+    @Turno VARCHAR(20),
+    @Fecha DATE 
+AS
+BEGIN
+    INSERT INTO ReporteCuadre
+    (
+        id_Isla,
+        Turno,
+        Fecha
+    )
+    VALUES
+    (
+        @id_Isla,
+        @Turno,
+        @Fecha
+    )
+END
+GO
+
+--Obtener parametros
+CREATE OR ALTER PROC sp_ObtenerParametros
+(
+    @id_Isla INT,
+    @Turno VARCHAR(20),
+    @Fecha DATE
+)
+AS
+BEGIN
+
+    SELECT
+        @id_Isla AS id_Isla,
+        @Turno AS Turno,
+        @Fecha AS Fecha;
+
+END
+
+--MostrarCuadre
+CREATE OR ALTER PROC sp_MostrarCuadre
+(
+    @id_Isla INT,
+    @Turno VARCHAR(20),
+    @Fecha DATE
+)
+AS
+BEGIN
+
+    SELECT
+        m.id_Manguera AS [No. Manguera],
+        p.NomProducto AS Producto,
+        p.Precio_Litro AS Precio,
+
+        MIN(dv.LecturaINL) AS [L.Inicial],
+        MAX(dv.LecturaFNL) AS [L.Final],
+
+        ISNULL(SUM(dv.Galones),0) AS Galones,
+        ISNULL(SUM(dv.Total),0) AS [Total Ventas]
+
+    FROM Isla_Manguera im
+
+    INNER JOIN Mangueras m
+        ON im.id_Manguera = m.id_Manguera
+
+    INNER JOIN Productos p
+        ON m.id_Producto = p.id_Producto
+
+    LEFT JOIN Detalle_Venta dv
+        ON m.id_Manguera = dv.id_Manguera
+
+    LEFT JOIN Ventas v
+        ON dv.id_Venta = v.id_Venta
+        AND v.id_Isla = @id_Isla
+        AND v.Fecha = @Fecha
+        AND(
+            (@Turno = 'Matutino' AND v.Hora >= '06:00' AND v.Hora < '14:00')
+            OR (@Turno = 'Vespertino' AND v.Hora >= '14:00' AND v.Hora < '22:00')
+            OR (@Turno = 'Nocturno' AND (v.Hora >= '22:00' OR v.Hora < '06:00'))
+        )
+
+    WHERE im.id_Isla = @id_Isla
+
+    GROUP BY
+        m.id_Manguera,
+        p.NomProducto,
+        p.Precio_Litro
+
+    ORDER BY m.id_Manguera;
+
+END
+
+--Mostrar Turnos
+CREATE OR ALTER PROC sp_MostrarTurnos
+AS
+BEGIN
+
+    SELECT 'Matutino' AS Turno
+    UNION
+    SELECT 'Vespertino'
+    UNION
+    SELECT 'Nocturno';
+
+END
+
+--Mostrar Turnos
+CREATE OR ALTER PROC sp_MostrarDatosIsla
+AS
+BEGIN
+
+    SELECT
+        id_Isla,
+        Estado
+    FROM Islas
+
+    ORDER BY id_Isla;
+
+END
+
+-- REPORTE 2: COMPARATIVA DE ISLAS
+CREATE OR ALTER PROC sp_Reporte_Comparativa_Islas
+    @FechaInicio DATE = NULL,
+    @FechaFin    DATE = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- DETALLE POR ISLA
+    SELECT
+        v.id_Isla                                                   AS [Isla],
+        COUNT(DISTINCT v.id_Venta)                                  AS [Ventas Registradas],
+        COUNT(dv.id_Detalle)                                        AS [Transacciones],
+        CAST(SUM(dv.Galones)            AS DECIMAL(10,2))           AS [Total Galones],
+        CAST(SUM(dv.Total)              AS DECIMAL(10,2))           AS [Total Ventas RD$],
+        CAST(AVG(dv.Total)              AS DECIMAL(10,2))           AS [Ticket Promedio RD$],
+        CAST(MAX(dv.Total)              AS DECIMAL(10,2))           AS [Venta Maxima RD$]
+    FROM Ventas v
+    INNER JOIN Detalle_Venta dv ON v.id_Venta = dv.id_Venta
+    WHERE
+        (@FechaInicio IS NULL OR v.Fecha >= @FechaInicio)
+        AND (@FechaFin IS NULL OR v.Fecha <= @FechaFin)
+    GROUP BY v.id_Isla
+    ORDER BY [Total Ventas RD$] DESC;
+
+    -- TOTALES GENERALES
+    SELECT
+        COUNT(DISTINCT v.id_Venta)                                  AS [Total Ventas],
+        COUNT(dv.id_Detalle)                                        AS [Total Transacciones],
+        CAST(SUM(dv.Galones)            AS DECIMAL(10,2))           AS [Gran Total Galones],
+        CAST(SUM(dv.Total)              AS DECIMAL(10,2))           AS [Gran Total RD$],
+        CAST(AVG(dv.Total)              AS DECIMAL(10,2))           AS [Ticket Promedio General RD$]
+    FROM Ventas v
+    INNER JOIN Detalle_Venta dv ON v.id_Venta = dv.id_Venta
+    WHERE
+        (@FechaInicio IS NULL OR v.Fecha >= @FechaInicio)
+        AND (@FechaFin IS NULL OR v.Fecha <= @FechaFin);
+END
+GO
+
+-- REPORTE 3: PRODUCTOS MAS VENDIDOS POR TURNO
+CREATE OR ALTER PROC sp_Reporte_Productos_Por_Turno
+    @FechaInicio DATE        = NULL,
+    @FechaFin    DATE        = NULL,
+    @Turno       VARCHAR(20) = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- DETALLE POR TURNO Y PRODUCTO
+    SELECT
+        CASE
+            WHEN v.Hora >= '06:00' AND v.Hora < '14:00' THEN 'Matutino'
+            WHEN v.Hora >= '14:00' AND v.Hora < '22:00' THEN 'Vespertino'
+            ELSE 'Nocturno'
+        END                                                         AS [Turno],
+        p.NomProducto                                               AS [Producto],
+        c.NomCategoria                                              AS [Categoria],
+        CAST(p.Precio_Litro         AS DECIMAL(10,2))               AS [Precio por Litro RD$],
+        COUNT(dv.id_Detalle)                                        AS [Transacciones],
+        CAST(SUM(dv.Galones)        AS DECIMAL(10,2))               AS [Galones Vendidos],
+        CAST(SUM(dv.Total)          AS DECIMAL(10,2))               AS [Importe RD$],
+        CAST(AVG(dv.Total)          AS DECIMAL(10,2))               AS [Promedio por Despacho RD$]
+    FROM Detalle_Venta dv
+    INNER JOIN Ventas    v ON dv.id_Venta    = v.id_Venta
+    INNER JOIN Productos p ON dv.id_Producto = p.id_Producto
+    INNER JOIN Categoria c ON p.id_Categoria = c.id_Categoria
+    WHERE
+        (@FechaInicio IS NULL OR v.Fecha >= @FechaInicio)
+        AND (@FechaFin IS NULL OR v.Fecha <= @FechaFin)
+        AND (
+            @Turno IS NULL
+            OR (@Turno = 'Matutino'   AND v.Hora >= '06:00' AND v.Hora <  '14:00')
+            OR (@Turno = 'Vespertino' AND v.Hora >= '14:00' AND v.Hora <  '22:00')
+            OR (@Turno = 'Nocturno'   AND (v.Hora >= '22:00' OR v.Hora < '06:00'))
+        )
+    GROUP BY
+        CASE
+            WHEN v.Hora >= '06:00' AND v.Hora < '14:00' THEN 'Matutino'
+            WHEN v.Hora >= '14:00' AND v.Hora < '22:00' THEN 'Vespertino'
+            ELSE 'Nocturno'
+        END,
+        p.NomProducto, c.NomCategoria, p.Precio_Litro
+    ORDER BY [Turno], [Galones Vendidos] DESC;
+
+    -- RESUMEN POR TURNO (totales)
+    SELECT
+        CASE
+            WHEN v.Hora >= '06:00' AND v.Hora < '14:00' THEN 'Matutino'
+            WHEN v.Hora >= '14:00' AND v.Hora < '22:00' THEN 'Vespertino'
+            ELSE 'Nocturno'
+        END                                                         AS [Turno],
+        COUNT(dv.id_Detalle)                                        AS [Total Transacciones],
+        CAST(SUM(dv.Galones)        AS DECIMAL(10,2))               AS [Total Galones],
+        CAST(SUM(dv.Total)          AS DECIMAL(10,2))               AS [Total Ventas RD$]
+    FROM Detalle_Venta dv
+    INNER JOIN Ventas v ON dv.id_Venta = v.id_Venta
+    WHERE
+        (@FechaInicio IS NULL OR v.Fecha >= @FechaInicio)
+        AND (@FechaFin IS NULL OR v.Fecha <= @FechaFin)
+        AND (
+            @Turno IS NULL
+            OR (@Turno = 'Matutino'   AND v.Hora >= '06:00' AND v.Hora <  '14:00')
+            OR (@Turno = 'Vespertino' AND v.Hora >= '14:00' AND v.Hora <  '22:00')
+            OR (@Turno = 'Nocturno'   AND (v.Hora >= '22:00' OR v.Hora < '06:00'))
+        )
+    GROUP BY
+        CASE
+            WHEN v.Hora >= '06:00' AND v.Hora < '14:00' THEN 'Matutino'
+            WHEN v.Hora >= '14:00' AND v.Hora < '22:00' THEN 'Vespertino'
+            ELSE 'Nocturno'
+        END
+    ORDER BY [Total Ventas RD$] DESC;
+END
+GO
+
+-- ListarReportes desde aqui son nuevos
+CREATE OR ALTER PROC sp_ListarReportes
+AS
+BEGIN
+    SELECT 
+        id_Reporte,
+        id_Isla,
+        Turno,
+        Fecha
+    FROM ReporteCuadre
+    ORDER BY Fecha DESC, id_Reporte DESC;
+END
+GO
+
+-- BuscarReportesPorFecha
+CREATE OR ALTER PROC sp_BuscarReportesPorFecha
+    @Fecha DATE
+AS
+BEGIN
+    SELECT 
+        id_Reporte,
+        id_Isla,
+        Turno,
+        Fecha
+    FROM ReporteCuadre
+    WHERE Fecha = @Fecha
+    ORDER BY id_Reporte DESC;
+END
+GO
+
+-- MostrarHojaDetalle
+CREATE OR ALTER PROC sp_MostrarHojaDetalle
+AS
+BEGIN
+    SELECT
+        id_Isla,
+        Turno,
+        Fecha
+    FROM HojaDetalle
+    ORDER BY Fecha DESC;
+END
+GO
+
+-- BuscarHojaDetallePorFecha
+CREATE OR ALTER PROC sp_MostrarHojaDetalle
+AS
+BEGIN
+    SELECT
+        hd.id_HojaD,
+        hd.id_Detalle,
+        hd.Turno,
+        hd.Fecha
+    FROM hoja_de_detalle hd
+    ORDER BY hd.Fecha DESC;
+END
+GO
+
+-- BuscarReportePorParametros
+CREATE OR ALTER PROC sp_BuscarHojaDetallePorFecha
+    @Fecha DATE
+AS
+BEGIN
+    SELECT
+        hd.id_HojaD,
+        hd.id_Detalle,
+        hd.Turno,
+        hd.Fecha
+    FROM hoja_de_detalle hd
+    WHERE hd.Fecha = @Fecha
+    ORDER BY hd.Fecha DESC;
+END
+GO
+
+-- RegistrarHojaDetalle
+
+CREATE OR ALTER PROC sp_RegistrarHojaDetalle
+    @id_Detalle INT,
+    @Turno VARCHAR(20),
+    @Fecha DATE
+AS
+BEGIN
+    INSERT INTO hoja_de_detalle
+    (
+        id_Detalle,
+        Turno,
+        Fecha
+    )
+    VALUES
+    (
+        @id_Detalle,
+        @Turno,
+        @Fecha
+    );
+END
+GO
+
+-- hacer backup
+CREATE OR ALTER PROC sp_BackupBaseDatos
+    @Ruta NVARCHAR(500)
+AS
+BEGIN
+    BACKUP DATABASE GasolineraDB
+    TO DISK = @Ruta
+    WITH INIT, FORMAT;
+END
+GO
+

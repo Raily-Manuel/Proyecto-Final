@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Entidades;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -9,12 +11,13 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Configuration;
 
 namespace Sistema_Cuadre_TotalEnergies
 {
     public partial class Form1 : Form
     {
+        private Empleado _empleado;
+
         public Form1()
         {
             InitializeComponent();
@@ -37,21 +40,6 @@ namespace Sistema_Cuadre_TotalEnergies
             txtcontra.PasswordChar = '•';
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
-
         private void btnini_Click(object sender, EventArgs e)
         {
             try
@@ -70,7 +58,7 @@ namespace Sistema_Cuadre_TotalEnergies
                 }
 
                 // VALIDAR LIMITE DE CARACTERES
-                if (txtnombre.Text.Length > 40 ||
+                if (txtnombre.Text.Length > 50 ||
                     txtcontra.Text.Length > 30)
                 {
                     MessageBox.Show(
@@ -82,7 +70,7 @@ namespace Sistema_Cuadre_TotalEnergies
                     return;
                 }
 
-                // CONEXION DESDE APP.CONFIG
+                // CONEXION
                 string conexion = ConfigurationManager
                     .ConnectionStrings["conexion"]
                     .ConnectionString;
@@ -91,7 +79,6 @@ namespace Sistema_Cuadre_TotalEnergies
                 {
                     cn.Open();
 
-                    // PROCEDIMIENTO ALMACENADO
                     SqlCommand cmd = new SqlCommand("sp_Iniciar_Sesion", cn);
 
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -101,7 +88,7 @@ namespace Sistema_Cuadre_TotalEnergies
 
                     SqlDataReader dr = cmd.ExecuteReader();
 
-                    // SI EXISTE EL USUARIO
+                    // SI EXISTE
                     if (dr.Read())
                     {
                         string nombre = dr["Nombre"].ToString();
@@ -115,11 +102,18 @@ namespace Sistema_Cuadre_TotalEnergies
                             MessageBoxIcon.Information
                         );
 
+                        // CREAR EMPLEADO
+                        _empleado = new Empleado();
+
+                        _empleado.Nombre = dr["Nombre"].ToString();
+                        _empleado.Cargo = dr["Cargo"].ToString();
+                        _empleado.Turno = dr["Turno"].ToString();
+
                         // OCULTAR LOGIN
                         pnldata.Visible = false;
 
-                        // ABRIR MENU PRINCIPAL EN EL MISMO FORM
-                        Menu_Principal menu = new Menu_Principal();
+                        // ABRIR MENU
+                        Menu_Principal menu = new Menu_Principal(_empleado);
 
                         menu.TopLevel = false;
                         menu.Dock = DockStyle.Fill;
@@ -143,25 +137,7 @@ namespace Sistema_Cuadre_TotalEnergies
             catch (SqlException ex)
             {
                 MessageBox.Show(
-                    "Error de base de datos:\n" + ex.Message,
-                    "SQL Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
-            }
-            catch (FormatException)
-            {
-                MessageBox.Show(
-                    "Error de formato en los datos ingresados.",
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
-            }
-            catch (OverflowException)
-            {
-                MessageBox.Show(
-                    "Los datos ingresados son demasiado largos.",
+                    "Error SQL:\n" + ex.Message,
                     "Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
@@ -175,6 +151,12 @@ namespace Sistema_Cuadre_TotalEnergies
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                 );
+            }
+            finally
+            {
+                txtcontra.Clear();
+
+                txtnombre.Focus();
             }
         }
     }
